@@ -1,1 +1,1356 @@
-soon
+# /* ============================================================================
+COMPONENTS.CSS - Reusable UI Components
+
+This file contains all styled UI components used throughout the app:
+
+- Buttons (upload, export, sample, presets)
+- Form inputs (text, number, file, select, range sliders)
+- Cards (tool cards, instructions)
+- Toggles & switches
+- Color swatches & palettes
+- Dropdowns & accordions
+- Weather widget
+- Saved patterns list
+
+All components use the glass morphism design system with liquid glass effects,
+purple/green glow states, and smooth transitions.
+============================================================================ */
+
+/* ==========================================================================
+BUTTONS - Base Styles
+========================================================================== */
+
+/**
+
+- Base button style with liquid glass effect
+- Used by: upload, export, sample buttons
+- 
+- Features:
+- - Glass morphism background with blur
+- - Inset shadows for depth
+- - Smooth transitions
+- - Before pseudo-element for hover shimmer effect
+    */
+    button,
+    select {
+    padding: var(–spacing-md) var(–spacing-md);
+    font-size: var(–font-size-base);
+    border-radius: var(–border-radius-lg);
+
+/* Glass morphism */
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+var(–shadow-inset-bottom);
+
+color: var(–color-off-white);
+cursor: pointer;
+transition: all var(–transition-normal);
+font-family: var(–font-primary);
+width: 100%;
+}
+
+/**
+
+- Button hover state
+- Slightly brighter glass, stronger border
+  */
+  button:hover,
+  select:hover {
+  background: var(–glass-light-hover);
+  border-color: var(–border-bright);
+  }
+
+/**
+
+- Button focus state
+- Purple outline for accessibility
+  */
+  button:focus,
+  select:focus {
+  outline: none;
+  border-color: var(–color-primary-purple-alpha);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2),
+  0 0 20px var(–color-primary-purple-alpha),
+  var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+  }
+
+/**
+
+- Button active state
+- Pressed effect
+  */
+  button:active,
+  select:active {
+  transform: translateY(0);
+  }
+
+/* –––––––––––––––––––––––––––––––––––––
+Button Variants - With Glow Effects
+––––––––––––––––––––––––––––––––––––– */
+
+/**
+
+- Upload button (purple glow)
+- Main CTA for file upload
+  */
+  .upload-btn,
+  .export-btn-header,
+  .sample-btn {
+  padding: var(–spacing-md) var(–spacing-md);
+  min-height: 52px;
+  color: var(–color-white);
+  border: none;
+  border-radius: var(–border-radius-lg);
+  font-size: var(–font-size-sm);
+  font-weight: var(–font-weight-semibold);
+  cursor: pointer;
+  transition: all var(–transition-normal);
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+/* Glass with shimmer effect */
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+var(–shadow-inset-bottom);
+
+position: relative;
+overflow: hidden;
+}
+
+/**
+
+- Button shimmer effect (pseudo-element)
+- Creates liquid glass shine on hover
+  */
+  .upload-btn::before,
+  .export-btn-header::before,
+  .sample-btn::before {
+  content: ‘’;
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(–transition-normal);
+  }
+
+.upload-btn:hover::before,
+.export-btn-header:hover::before,
+.sample-btn:hover::before {
+opacity: 1;
+}
+
+/**
+
+- Upload button - Purple glow
+  */
+  .upload-btn {
+  box-shadow: var(–shadow-medium), var(–glow-purple-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+.upload-btn:hover {
+transform: translateY(-2px);
+background: var(–glass-light-hover);
+box-shadow: var(–shadow-strong), var(–glow-purple-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+.upload-btn:active {
+transform: translateY(0);
+box-shadow: var(–shadow-medium), var(–glow-purple-intense),
+var(–shadow-inset-subtle), var(–shadow-inset-bottom-strong);
+}
+
+/**
+
+- Sample button - Green glow
+  */
+  .sample-btn {
+  box-shadow: var(–shadow-medium), var(–glow-green-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+.sample-btn:hover {
+transform: translateY(-2px);
+background: var(–glass-light-hover);
+box-shadow: var(–shadow-strong), var(–glow-green-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+.sample-btn:active {
+transform: translateY(0);
+box-shadow: var(–shadow-medium), var(–glow-green-intense),
+var(–shadow-inset-subtle), var(–shadow-inset-bottom-strong);
+}
+
+/**
+
+- Export button - Purple glow
+  */
+  .export-btn-header {
+  box-shadow: var(–shadow-medium), var(–glow-purple-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+.export-btn-header:hover {
+transform: translateY(-2px);
+background: var(–glass-light-hover);
+box-shadow: var(–shadow-strong), var(–glow-purple-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+.export-btn-header:active {
+transform: translateY(0);
+box-shadow: var(–shadow-medium), var(–glow-purple-intense),
+var(–shadow-inset-subtle), var(–shadow-inset-bottom-strong);
+}
+
+/**
+
+- Export button disabled state
+  */
+  .export-btn-header:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+  var(–shadow-inset-bottom);
+  }
+
+/* –––––––––––––––––––––––––––––––––––––
+Modal Buttons (Export Modal)
+––––––––––––––––––––––––––––––––––––– */
+
+/**
+
+- Export modal buttons
+  */
+  .export-btn-confirm,
+  .export-btn-cancel {
+  flex: 1;
+  padding: var(–spacing-md) var(–spacing-md);
+  border-radius: var(–border-radius-md);
+  font-size: var(–font-size-base);
+  font-weight: var(–font-weight-semibold);
+  cursor: pointer;
+  transition: all var(–transition-normal);
+  border: none;
+
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+var(–shadow-inset-bottom);
+color: var(–color-off-white);
+}
+
+/**
+
+- Confirm button - Green glow
+  */
+  .export-btn-confirm {
+  box-shadow: var(–shadow-medium), var(–glow-green-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+.export-btn-confirm:hover {
+transform: translateY(-2px);
+box-shadow: var(–shadow-strong), var(–glow-green-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+/**
+
+- Cancel button - Red glow
+  */
+  .export-btn-cancel {
+  box-shadow: var(–shadow-medium), var(–glow-red-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+.export-btn-cancel:hover {
+transform: translateY(-2px);
+box-shadow: var(–shadow-strong), var(–glow-red-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+/* –––––––––––––––––––––––––––––––––––––
+Small Toggle Buttons
+––––––––––––––––––––––––––––––––––––– */
+
+/**
+
+- Palette toggle (Color Palette ↔ Hex Checker)
+- Green themed
+  */
+  .palette-toggle {
+  font-size: var(–font-size-xs);
+  padding: var(–spacing-xs) var(–spacing-sm);
+  border-radius: var(–border-radius-sm);
+  background: rgba(16, 185, 129, 0.2);
+  color: var(–color-primary-green);
+  cursor: pointer;
+  transition: all var(–transition-normal);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+.palette-toggle:hover {
+background: rgba(16, 185, 129, 0.3);
+}
+
+/**
+
+- Calculator recommendations toggle
+- Purple themed
+  */
+  .calc-recommendations-toggle {
+  font-size: var(–font-size-xs);
+  padding: var(–spacing-xs) var(–spacing-sm);
+  border-radius: var(–border-radius-sm);
+  background: rgba(118, 75, 162, 0.2);
+  color: var(–color-primary-purple-dark);
+  cursor: pointer;
+  transition: all var(–transition-normal);
+  border: 1px solid rgba(118, 75, 162, 0.3);
+  }
+
+.calc-recommendations-toggle:hover {
+background: rgba(118, 75, 162, 0.3);
+}
+
+/* ==========================================================================
+FORM INPUTS
+========================================================================== */
+
+/**
+
+- Text & number inputs
+- Used in: pattern name input, custom export size, hex checker
+  */
+  input[type=“text”],
+  input[type=“number”],
+  .pattern-name-input,
+  .hex-input {
+  padding: var(–spacing-md);
+  border-radius: var(–border-radius-md);
+
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+var(–shadow-inset-bottom);
+
+color: var(–color-off-white);
+font-size: var(–font-size-base);
+font-family: var(–font-primary);
+width: 100%;
+}
+
+/**
+
+- Hex input specific styling
+- Monospace font for hex codes
+  */
+  .hex-input {
+  font-family: ‘Courier New’, monospace;
+  font-weight: var(–font-weight-semibold);
+  }
+
+/**
+
+- Input focus state
+  */
+  input[type=“text”]:focus,
+  input[type=“number”]:focus,
+  .pattern-name-input:focus,
+  .hex-input:focus {
+  outline: none;
+  border-color: var(–color-primary-purple-alpha);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2),
+  0 0 20px var(–color-primary-purple-alpha),
+  var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+  }
+
+/* –––––––––––––––––––––––––––––––––––––
+Select Dropdowns
+––––––––––––––––––––––––––––––––––––– */
+
+/**
+
+- Select dropdowns with color-coded glows
+- Different glows indicate different purposes
+  */
+
+/**
+
+- Purple glow selects
+- Canvas quality, grid size, master dropdown, country stores, view mode
+  */
+  #canvasQuality,
+  #gridSize,
+  #masterDropdown,
+  #countryStores,
+  #viewMode {
+  box-shadow: var(–shadow-medium), var(–glow-purple-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+#canvasQuality:hover,
+#gridSize:hover,
+#masterDropdown:hover,
+#countryStores:hover,
+#viewMode:hover {
+box-shadow: var(–shadow-strong), var(–glow-purple-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+#canvasQuality:active,
+#gridSize:active,
+#masterDropdown:active,
+#countryStores:active,
+#viewMode:active {
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2),
+var(–glow-purple-intense),
+var(–shadow-inset-subtle), var(–shadow-inset-bottom-strong);
+}
+
+/**
+
+- Green glow selects
+- Repeat type, background color
+  */
+  #repeatType,
+  #bgColor {
+  box-shadow: var(–shadow-medium), var(–glow-green-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+#repeatType:hover,
+#bgColor:hover {
+box-shadow: var(–shadow-strong), var(–glow-green-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+#repeatType:active,
+#bgColor:active {
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2),
+var(–glow-green-intense),
+var(–shadow-inset-subtle), var(–shadow-inset-bottom-strong);
+}
+
+/**
+
+- Seamless test dropdown (green)
+  */
+  .seamless-test-dropdown select {
+  box-shadow: var(–shadow-medium), var(–glow-green-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+.seamless-test-dropdown select:hover {
+box-shadow: var(–shadow-strong), var(–glow-green-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+.seamless-test-dropdown select:active {
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2),
+var(–glow-green-intense),
+var(–shadow-inset-subtle), var(–shadow-inset-bottom-strong);
+}
+
+/**
+
+- Export modal selects
+  */
+  .export-option select,
+  .export-option input {
+  padding: var(–spacing-md) var(–spacing-md);
+  font-size: var(–font-size-base);
+  border-radius: var(–border-radius-md);
+
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+var(–shadow-inset-bottom);
+
+color: var(–color-off-white);
+font-family: inherit;
+width: 100%;
+}
+
+/* ==========================================================================
+RANGE SLIDERS
+========================================================================== */
+
+/**
+
+- Custom styled range sliders
+- Complete custom styling for cross-browser consistency
+- 
+- Features:
+- - Gradient track with glass effect
+- - Large glass thumb with glow
+- - Smooth animations
+    */
+    input[type=“range”] {
+    width: 100%;
+    height: 6px;
+    border-radius: 20px;
+    background: linear-gradient(90deg,
+    rgba(102, 126, 234, 0.3) 0%,
+    rgba(118, 75, 162, 0.3) 100%);
+    border: 1px solid var(–border-light);
+    outline: none;
+    -webkit-appearance: none;
+    transition: all var(–transition-normal);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+/* –––––––––––––––––––––––––––––––––––––
+Range Slider: WebKit (Chrome, Safari, Edge)
+––––––––––––––––––––––––––––––––––––– */
+
+/**
+
+- WebKit slider thumb
+- Large glass pill with glow effect
+  */
+  input[type=“range”]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 60px;
+  height: 28px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3),
+  0 0 20px var(–color-primary-purple-alpha),
+  inset 0 2px 6px rgba(255, 255, 255, 0.4),
+  inset 0 -2px 6px rgba(0, 0, 0, 0.1);
+  transition: all var(–transition-normal) ease;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+
+/**
+
+- WebKit slider thumb hover
+  */
+  input[type=“range”]::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4),
+  0 0 30px var(–color-primary-purple-alpha),
+  inset 0 2px 8px rgba(255, 255, 255, 0.5),
+  inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+/**
+
+- WebKit slider thumb active (dragging)
+  */
+  input[type=“range”]::-webkit-slider-thumb:active {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5),
+  0 0 35px rgba(118, 75, 162, 0.8),
+  inset 0 2px 6px rgba(255, 255, 255, 0.45),
+  inset 0 -2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+/* –––––––––––––––––––––––––––––––––––––
+Range Slider: Firefox
+––––––––––––––––––––––––––––––––––––– */
+
+/**
+
+- Firefox slider thumb
+  */
+  input[type=“range”]::-moz-range-thumb {
+  width: 60px;
+  height: 28px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3),
+  0 0 20px var(–color-primary-purple-alpha),
+  inset 0 2px 6px rgba(255, 255, 255, 0.4),
+  inset 0 -2px 6px rgba(0, 0, 0, 0.1);
+  transition: all var(–transition-normal) ease;
+  }
+
+/**
+
+- Firefox slider thumb hover
+  */
+  input[type=“range”]::-moz-range-thumb:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4),
+  0 0 30px var(–color-primary-purple-alpha),
+  inset 0 2px 8px rgba(255, 255, 255, 0.5),
+  inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+/**
+
+- Firefox slider thumb active
+  */
+  input[type=“range”]::-moz-range-thumb:active {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5),
+  0 0 35px rgba(118, 75, 162, 0.8),
+  inset 0 2px 6px rgba(255, 255, 255, 0.45),
+  inset 0 -2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+/* ==========================================================================
+SLIDER DROPDOWN GLOW COLORS
+========================================================================== */
+
+/**
+
+- Slider dropdowns with purple glow
+- Offset X, Mockup Zoom, Scale
+  */
+  .slider-dropdown[data-slider=“offsetX”] .slider-dropdown-header,
+  .slider-dropdown[data-slider=“mockupZoom”] .slider-dropdown-header,
+  .slider-dropdown[data-slider=“scale”] .slider-dropdown-header {
+  box-shadow: var(–shadow-medium), var(–glow-purple-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+.slider-dropdown[data-slider=“offsetX”] .slider-dropdown-header:hover,
+.slider-dropdown[data-slider=“mockupZoom”] .slider-dropdown-header:hover,
+.slider-dropdown[data-slider=“scale”] .slider-dropdown-header:hover {
+box-shadow: var(–shadow-strong), var(–glow-purple-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+.slider-dropdown[data-slider=“offsetX”] .slider-dropdown-header:active,
+.slider-dropdown[data-slider=“mockupZoom”] .slider-dropdown-header:active,
+.slider-dropdown[data-slider=“scale”] .slider-dropdown-header:active {
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2),
+var(–glow-purple-intense),
+var(–shadow-inset-subtle), var(–shadow-inset-bottom-strong);
+}
+
+/**
+
+- Slider dropdowns with green glow
+- Offset Y, Mockup Rotate
+  */
+  .slider-dropdown[data-slider=“offsetY”] .slider-dropdown-header,
+  .slider-dropdown[data-slider=“mockupRotate”] .slider-dropdown-header {
+  box-shadow: var(–shadow-medium), var(–glow-green-medium),
+  var(–shadow-inset-top), var(–shadow-inset-bottom);
+  }
+
+.slider-dropdown[data-slider=“offsetY”] .slider-dropdown-header:hover,
+.slider-dropdown[data-slider=“mockupRotate”] .slider-dropdown-header:hover {
+box-shadow: var(–shadow-strong), var(–glow-green-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+}
+
+.slider-dropdown[data-slider=“offsetY”] .slider-dropdown-header:active,
+.slider-dropdown[data-slider=“mockupRotate”] .slider-dropdown-header:active {
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2),
+var(–glow-green-intense),
+var(–shadow-inset-subtle), var(–shadow-inset-bottom-strong);
+}
+
+/**
+
+- Generic slider dropdown header hover
+- Fallback for any slider without specific color
+  */
+  .slider-dropdown-header:hover {
+  background: var(–glass-light-hover);
+  border-color: var(–border-bright);
+  }
+
+/* ==========================================================================
+COLOR PALETTE & HEX CHECKER
+========================================================================== */
+
+/**
+
+- Color palette grid
+- 9 color swatches in a grid
+  */
+  .color-palette {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: var(–spacing-xs);
+  margin-top: var(–spacing-md);
+  }
+
+/**
+
+- Color palette hidden when hex checker active
+  */
+  .color-palette.hex-mode {
+  display: none;
+  }
+
+/**
+
+- Individual color swatch
+- Clickable square with hex tooltip
+  */
+  .color-swatch {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(–border-radius-sm);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all var(–transition-normal);
+  position: relative;
+  box-shadow: var(–shadow-subtle);
+  }
+
+/**
+
+- Color swatch hover
+- Scales up and brightens border
+  */
+  .color-swatch:hover {
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: var(–shadow-medium);
+  }
+
+/**
+
+- Color swatch active (clicking)
+  */
+  .color-swatch:active {
+  transform: scale(0.98);
+  }
+
+/**
+
+- Hex tooltip
+- Shows hex code on hover
+  */
+  .hex-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: var(–color-white);
+  padding: var(–spacing-xs) var(–spacing-sm);
+  border-radius: var(–border-radius-sm);
+  font-size: var(–font-size-xs);
+  font-weight: var(–font-weight-semibold);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(–transition-normal);
+  z-index: 100;
+  }
+
+/**
+
+- Show tooltip on swatch hover
+  */
+  .color-swatch:hover .hex-tooltip {
+  opacity: 1;
+  }
+
+/**
+
+- Color swatch copied state
+- Shows checkmark when hex copied
+  */
+  .color-swatch.copied::after {
+  content: ‘✓’;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(–color-white);
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+  }
+
+/* –––––––––––––––––––––––––––––––––––––
+Hex Checker
+––––––––––––––––––––––––––––––––––––– */
+
+/**
+
+- Hex checker container
+- Hidden by default, toggled by palette toggle
+  */
+  .hex-checker {
+  display: none;
+  margin-top: var(–spacing-md);
+  }
+
+.hex-checker.active {
+display: block;
+}
+
+/**
+
+- Hex input row
+  */
+  .hex-input-row {
+  display: flex;
+  gap: var(–spacing-xs);
+  margin-bottom: var(–spacing-md);
+  }
+
+/**
+
+- Hex preview box
+- Shows the color from hex input
+  */
+  .hex-preview {
+  width: 100%;
+  height: 80px;
+  border-radius: var(–border-radius-md);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(–shadow-medium);
+  transition: all var(–transition-normal);
+  }
+
+/* ==========================================================================
+CALCULATOR PRESETS
+========================================================================== */
+
+/**
+
+- Calculator recommendations section
+- Hidden by default, toggled by recommendations button
+  */
+  .calc-recommendations {
+  display: none;
+  margin-top: var(–spacing-md);
+  padding-top: var(–spacing-md);
+  border-top: 1px solid var(–border-light);
+  }
+
+.calc-recommendations.active {
+display: block;
+}
+
+/**
+
+- Calculator preset group
+  */
+  .calc-preset-group {
+  margin-bottom: var(–spacing-md);
+  }
+
+/**
+
+- Calculator preset label
+  */
+  .calc-preset-label {
+  font-size: var(–font-size-xs);
+  font-weight: var(–font-weight-bold);
+  color: var(–color-primary-purple);
+  margin-bottom: var(–spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  }
+
+/**
+
+- Calculator preset buttons grid
+  */
+  .calc-preset-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(–spacing-xs);
+  }
+
+/**
+
+- Individual calculator preset button
+  */
+  .calc-preset-btn {
+  padding: var(–spacing-xs) var(–spacing-md);
+  border-radius: var(–border-radius-sm);
+
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-subtle), var(–shadow-inset-subtle);
+
+color: var(–color-gray-lighter);
+font-size: var(–font-size-xs);
+font-weight: var(–font-weight-semibold);
+cursor: pointer;
+transition: all var(–transition-normal);
+text-align: center;
+}
+
+.calc-preset-btn:hover {
+background: var(–glass-light-hover);
+border-color: var(–border-bright);
+transform: translateY(-1px);
+box-shadow: var(–shadow-medium), var(–shadow-inset-top);
+}
+
+.calc-preset-btn:active {
+transform: translateY(0);
+box-shadow: var(–shadow-subtle), var(–shadow-inset-subtle);
+}
+
+/* –––––––––––––––––––––––––––––––––––––
+Calculator Labels & Unit Buttons
+––––––––––––––––––––––––––––––––––––– */
+
+/**
+
+- Calculator label row
+  */
+  .calc-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(–spacing-xs);
+  }
+
+/**
+
+- Calculator labels container
+  */
+  .calc-labels {
+  display: flex;
+  gap: var(–spacing-xs);
+  }
+
+/**
+
+- Calculator label (Size / DPI toggle)
+  */
+  .calc-label {
+  font-size: var(–font-size-xl);
+  font-weight: var(–font-weight-bold);
+  cursor: pointer;
+  padding: var(–spacing-xs) var(–spacing-sm);
+  border-radius: var(–border-radius-sm);
+  transition: all var(–transition-normal);
+  user-select: none;
+  border: 1px solid rgba(118, 75, 162, 0.3);
+  background: rgba(118, 75, 162, 0.2);
+  color: var(–color-primary-purple-dark);
+  }
+
+.calc-label:hover {
+background: rgba(118, 75, 162, 0.3);
+}
+
+/**
+
+- Calculator label active state (selected)
+  */
+  .calc-label.active {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(–color-primary-green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+.calc-label.active:hover {
+background: rgba(16, 185, 129, 0.3);
+}
+
+/**
+
+- Calculator unit buttons (in / cm)
+  */
+  .calc-unit-buttons {
+  display: flex;
+  gap: var(–spacing-xs);
+  }
+
+.calc-unit-btn {
+font-size: var(–font-size-xs);
+padding: var(–spacing-xs) var(–spacing-sm);
+border-radius: var(–border-radius-xs);
+cursor: pointer;
+transition: all var(–transition-normal);
+border: 1px solid rgba(118, 75, 162, 0.3);
+font-weight: var(–font-weight-semibold);
+background: rgba(118, 75, 162, 0.2);
+color: var(–color-primary-purple-dark);
+user-select: none;
+}
+
+.calc-unit-btn:hover {
+background: rgba(118, 75, 162, 0.3);
+}
+
+.calc-unit-btn.active {
+background: rgba(16, 185, 129, 0.2);
+color: var(–color-primary-green);
+border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.calc-unit-btn.active:hover {
+background: rgba(16, 185, 129, 0.3);
+}
+
+/**
+
+- Calculator current value display
+  */
+  .calc-current-value {
+  font-size: var(–font-size-xl);
+  font-weight: var(–font-weight-bold);
+  color: var(–color-primary-purple);
+  }
+
+/**
+
+- Calculator result box
+  */
+  .calc-result {
+  margin-top: var(–spacing-md);
+  padding: var(–spacing-md);
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: var(–border-radius-sm);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  text-align: center;
+  }
+
+.calc-result-value {
+font-size: var(–font-size-lg);
+font-weight: var(–font-weight-bold);
+color: var(–color-primary-green);
+}
+
+/**
+
+- Calculator single slider section
+  */
+  .calc-single-slider {
+  margin-top: var(–spacing-md);
+  }
+
+/* ==========================================================================
+SAVED PATTERNS
+========================================================================== */
+
+/**
+
+- Save pattern input row
+  */
+  .save-input-row {
+  display: flex;
+  gap: var(–spacing-xs);
+  margin-bottom: var(–spacing-md);
+  }
+
+/**
+
+- Save pattern button
+  */
+  .save-pattern-btn {
+  padding: var(–spacing-md) var(–spacing-lg);
+  border-radius: var(–border-radius-md);
+
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–glow-green-medium),
+var(–shadow-inset-top), var(–shadow-inset-bottom);
+
+color: var(–color-off-white);
+font-size: var(–font-size-base);
+font-weight: var(–font-weight-semibold);
+cursor: pointer;
+transition: all var(–transition-normal);
+white-space: nowrap;
+}
+
+.save-pattern-btn:hover {
+background: var(–glass-light-hover);
+box-shadow: var(–shadow-strong), var(–glow-green-strong),
+var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+transform: translateY(-2px);
+}
+
+.save-pattern-btn:disabled {
+opacity: 0.4;
+cursor: not-allowed;
+transform: none;
+}
+
+/**
+
+- Saved patterns list
+  */
+  .saved-patterns-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(–spacing-xs);
+  max-height: 300px;
+  overflow-y: auto;
+  }
+
+/**
+
+- Individual saved pattern item
+  */
+  .saved-pattern-item {
+  display: flex;
+  align-items: center;
+  gap: var(–spacing-md);
+  padding: var(–spacing-md);
+  border-radius: var(–border-radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(–border-light);
+  cursor: pointer;
+  transition: all var(–transition-normal);
+  }
+
+.saved-pattern-item:hover {
+background: var(–glass-light);
+border-color: var(–border-medium);
+transform: translateX(4px);
+}
+
+/**
+
+- Saved pattern thumbnail
+  */
+  .saved-pattern-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: var(–border-radius-sm);
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+/**
+
+- Saved pattern info
+  */
+  .saved-pattern-info {
+  flex: 1;
+  min-width: 0;
+  }
+
+.saved-pattern-name {
+font-size: var(–font-size-base);
+font-weight: var(–font-weight-semibold);
+color: var(–color-off-white);
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.saved-pattern-date {
+font-size: var(–font-size-xs);
+color: var(–color-gray-medium);
+}
+
+/**
+
+- Saved pattern delete button
+  */
+  .saved-pattern-delete {
+  padding: var(–spacing-xs);
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: var(–border-radius-sm);
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  cursor: pointer;
+  transition: all var(–transition-normal);
+  font-size: var(–font-size-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+
+.saved-pattern-delete:hover {
+background: rgba(239, 68, 68, 0.3);
+transform: scale(1.1);
+}
+
+/* ==========================================================================
+WEATHER WIDGET
+========================================================================== */
+
+/**
+
+- Weather widget
+- Shows weather, time, location in footer
+  */
+  .weather-widget {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(–spacing-md);
+  padding: var(–spacing-md) var(–spacing-lg);
+  margin-bottom: var(–spacing-md);
+
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border-radius: var(–border-radius-lg);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+var(–shadow-inset-bottom);
+
+font-size: var(–font-size-sm);
+
+/* Animated glow (defined at bottom) */
+animation: weather-glow 4s ease-in-out infinite;
+}
+
+.weather-widget.visible {
+display: flex;
+}
+
+.weather-widget.loading {
+opacity: 0.6;
+}
+
+/**
+
+- Weather icon
+  */
+  .weather-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  }
+
+/**
+
+- Weather temperature
+  */
+  .weather-temp {
+  font-size: var(–font-size-2xl);
+  font-weight: var(–font-weight-bold);
+  background: var(–gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  }
+
+/**
+
+- Weather time
+  */
+  .weather-time {
+  font-size: var(–font-size-md);
+  font-weight: var(–font-weight-semibold);
+  color: var(–color-primary-green);
+  }
+
+/**
+
+- Weather divider
+  */
+  .weather-divider {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: var(–font-weight-light);
+  }
+
+/**
+
+- Weather condition
+- Animated color cycling
+  */
+  .weather-condition {
+  font-size: var(–font-size-base);
+  font-weight: var(–font-weight-semibold);
+  animation: condition-glow 4s ease-in-out infinite;
+  }
+
+/**
+
+- Weather location
+- Animated color cycling
+  */
+  .weather-location {
+  font-size: var(–font-size-sm);
+  font-weight: var(–font-weight-semibold);
+  animation: location-glow 4s ease-in-out infinite;
+  }
+
+/* ==========================================================================
+SEAMLESS TEST DROPDOWN
+========================================================================== */
+
+/**
+
+- Seamless test dropdown container
+  */
+  .seamless-test-dropdown {
+  margin-bottom: var(–spacing-md);
+  }
+
+/* ==========================================================================
+RESPONSIVE ADJUSTMENTS
+========================================================================== */
+
+@media (max-width: 768px) {
+/**
+
+- Color palette: Keep 9 columns on mobile
+  */
+  .color-palette {
+  grid-template-columns: repeat(9, 1fr);
+  gap: var(–spacing-xs);
+  }
+
+/**
+
+- Calculator preset buttons: Single column on mobile
+  */
+  .calc-preset-buttons {
+  grid-template-columns: 1fr;
+  }
+
+/**
+
+- Weather widget: Wrap and smaller text on mobile
+  */
+  .weather-widget {
+  flex-wrap: wrap;
+  gap: var(–spacing-xs);
+  font-size: var(–font-size-xs);
+  }
+
+.weather-temp {
+font-size: var(–font-size-xl);
+}
+
+.weather-icon {
+font-size: 1.5rem;
+}
+}
