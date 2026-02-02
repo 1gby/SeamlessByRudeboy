@@ -1,4 +1,4 @@
-# /* ============================================================================
+/* ============================================================================
 CANVAS.JS - Canvas Drawing & Pattern Rendering
 
 This file handles all canvas-related operations:
