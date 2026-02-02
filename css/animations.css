@@ -1,1 +1,988 @@
-soon
+# /* ============================================================================
+ANIMATIONS.CSS - Keyframe Animations & Effects
+
+This file contains all @keyframes animations used throughout the app.
+
+Animation categories:
+
+1. Logo & branding animations (pulse, glow-pulse, spin effects)
+1. Loading animations (spin-glow, fade effects)
+1. Easter egg animations (matrix, spin-in/out, egg-glow)
+1. UI element animations (weather-glow, pill-glow, condition-glow)
+1. Utility animations (fadeIn, fadeOut, slideIn, etc.)
+
+All animations use easing functions defined in variables.css
+============================================================================ */
+
+/* ==========================================================================
+LOGO & BRANDING ANIMATIONS
+========================================================================== */
+
+/**
+
+- Pulse animation
+- Subtle green glow that pulses on the logo
+- Used by: #logo
+- 
+- Timeline:
+- 0% - No glow
+- 50% - Full green glow
+- 100% - No glow
+  */
+  @keyframes pulse {
+  0%, 100% {
+  filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
+  }
+  50% {
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 1))
+  drop-shadow(0 0 12px rgba(16, 185, 129, 1));
+  }
+  }
+
+/**
+
+- Glow pulse animation
+- Intense green flash when logo is clicked
+- Used by: #logo:active
+- 
+- Timeline:
+- 0% - No glow
+- 50% - Intense green glow (20px + 30px layers)
+- 100% - No glow
+- 
+- Duration: 0.4s (quick flash)
+  */
+  @keyframes glow-pulse {
+  0% {
+  filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
+  }
+  50% {
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 1))
+  drop-shadow(0 0 30px rgba(16, 185, 129, 0.8));
+  }
+  100% {
+  filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
+  }
+  }
+
+/* ==========================================================================
+LOADING ANIMATIONS
+========================================================================== */
+
+/**
+
+- Spin-glow animation
+- Logo rotates 720° while alternating between green and purple glow
+- Used by: .loading-logo
+- 
+- Timeline:
+- 0-50% - Green glow, rotate to 360°
+- 51% - Switch to purple glow
+- 51-100% - Purple glow, rotate to 720°
+- 
+- Duration: 3s (full rotation)
+  */
+  @keyframes spin-glow {
+  0% {
+  transform: rotate(0deg);
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 1))
+  drop-shadow(0 0 40px rgba(16, 185, 129, 0.8));
+  }
+  50% {
+  transform: rotate(360deg);
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 1))
+  drop-shadow(0 0 40px rgba(16, 185, 129, 0.8));
+  }
+  51% {
+  filter: drop-shadow(0 0 20px rgba(118, 75, 162, 1))
+  drop-shadow(0 0 40px rgba(118, 75, 162, 0.8));
+  }
+  100% {
+  transform: rotate(720deg);
+  filter: drop-shadow(0 0 20px rgba(118, 75, 162, 1))
+  drop-shadow(0 0 40px rgba(118, 75, 162, 0.8));
+  }
+  }
+
+/* ==========================================================================
+EASTER EGG ANIMATIONS
+========================================================================== */
+
+/**
+
+- Spin-in animation
+- Logo spins and scales in from nothing (entrance)
+- Used by: .easter-egg-logo (initial appearance)
+- 
+- Timeline:
+- 0% - Invisible, scaled to 0, no rotation
+- 100% - Fully visible, full scale, rotated 720°
+- 
+- Duration: 1s
+- Easing: ease-out (fast start, slow finish)
+  */
+  @keyframes spin-in {
+  0% {
+  transform: scale(0) rotate(0deg);
+  opacity: 0;
+  }
+  100% {
+  transform: scale(1) rotate(720deg);
+  opacity: 1;
+  }
+  }
+
+/**
+
+- Spin-out animation
+- Logo spins and scales out to nothing (exit)
+- Used by: .easter-egg-logo (when closing easter egg)
+- 
+- Timeline:
+- 0% - Fully visible, full scale, no rotation
+- 100% - Invisible, scaled to 0, rotated -720° (reverse spin)
+- 
+- Duration: 1s
+- Easing: ease-in (slow start, fast finish)
+  */
+  @keyframes spin-out {
+  0% {
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
+  }
+  100% {
+  transform: scale(0) rotate(-720deg);
+  opacity: 0;
+  }
+  }
+
+/**
+
+- Egg-glow animation
+- Alternates between purple and green glow
+- Used by: .easter-egg-logo (persistent glow effect)
+- 
+- Timeline:
+- 0%, 100% - Purple glow (15px)
+- 50% - Green glow (20px)
+- 
+- Duration: 2s
+  */
+  @keyframes egg-glow {
+  0%, 100% {
+  filter: drop-shadow(0 0 15px rgba(118, 75, 162, 0.8));
+  }
+  50% {
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.8));
+  }
+  }
+
+/* ==========================================================================
+WEATHER WIDGET ANIMATIONS
+========================================================================== */
+
+/**
+
+- Weather-glow animation
+- Weather widget alternates between purple and green box-shadow glow
+- Used by: .weather-widget
+- 
+- Timeline:
+- 0%, 100% - Purple glow
+- 50% - Green glow
+- 
+- Duration: 4s (slow, ambient cycle)
+  */
+  @keyframes weather-glow {
+  0%, 100% {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+  0 0 15px rgba(118, 75, 162, 0.4),
+  inset 0 2px 0 rgba(255, 255, 255, 0.3),
+  inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  }
+  50% {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+  0 0 15px rgba(16, 185, 129, 0.4),
+  inset 0 2px 0 rgba(255, 255, 255, 0.3),
+  inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  }
+  }
+
+/**
+
+- Condition-glow animation
+- Weather condition text alternates between purple and green text color/shadow
+- Used by: .weather-condition
+- 
+- Timeline:
+- 0%, 100% - Purple color with purple text-shadow
+- 50% - Green color with green text-shadow
+- 
+- Duration: 4s (synced with weather-glow)
+  */
+  @keyframes condition-glow {
+  0%, 100% {
+  color: #764ba2;
+  text-shadow: 0 0 10px rgba(118, 75, 162, 0.6);
+  }
+  50% {
+  color: #10b981;
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+  }
+  }
+
+/**
+
+- Location-glow animation
+- Weather location text alternates between green and purple
+- Used by: .weather-location
+- 
+- Timeline:
+- 0%, 100% - Green color with green text-shadow
+- 50% - Purple color with purple text-shadow
+- 
+- Duration: 4s (synced with weather-glow, opposite phase)
+- 
+- Note: This is inverse of condition-glow for visual variety
+  */
+  @keyframes location-glow {
+  0%, 100% {
+  color: #10b981;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  }
+  50% {
+  color: #764ba2;
+  text-shadow: 0 0 8px rgba(118, 75, 162, 0.6);
+  }
+  }
+
+/* ==========================================================================
+PATTERN INFO ANIMATIONS
+========================================================================== */
+
+/**
+
+- Pill-glow animation
+- Pattern info pills alternate between purple and green border/shadow
+- Used by: .info-pill
+- 
+- Timeline:
+- 0%, 100% - Purple glow and border
+- 50% - Green glow and border
+- 
+- Duration: 4s (ambient, slow cycle)
+  */
+  @keyframes pill-glow {
+  0%, 100% {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3),
+  0 0 10px rgba(118, 75, 162, 0.4),
+  inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(118, 75, 162, 0.3);
+  }
+  50% {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3),
+  0 0 10px rgba(16, 185, 129, 0.4),
+  inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(16, 185, 129, 0.3);
+  }
+  }
+
+/* ==========================================================================
+UTILITY ANIMATIONS - Fade Effects
+========================================================================== */
+
+/**
+
+- Fade in animation
+- Element fades from invisible to visible
+- 
+- Usage: Can be applied to any element for entrance
+- Duration: Typically 0.3s - 0.5s
+  */
+  @keyframes fadeIn {
+  from {
+  opacity: 0;
+  }
+  to {
+  opacity: 1;
+  }
+  }
+
+/**
+
+- Fade out animation
+- Element fades from visible to invisible
+- 
+- Usage: Can be applied to any element for exit
+- Duration: Typically 0.3s - 0.5s
+  */
+  @keyframes fadeOut {
+  from {
+  opacity: 1;
+  }
+  to {
+  opacity: 0;
+  }
+  }
+
+/**
+
+- Fade in up animation
+- Element fades in while sliding up from below
+- 
+- Usage: Modals, tooltips, dropdowns (entrance)
+- Duration: Typically 0.4s - 0.6s
+  */
+  @keyframes fadeInUp {
+  from {
+  opacity: 0;
+  transform: translateY(20px);
+  }
+  to {
+  opacity: 1;
+  transform: translateY(0);
+  }
+  }
+
+/**
+
+- Fade in down animation
+- Element fades in while sliding down from above
+- 
+- Usage: Notifications, alerts (entrance)
+- Duration: Typically 0.4s - 0.6s
+  */
+  @keyframes fadeInDown {
+  from {
+  opacity: 0;
+  transform: translateY(-20px);
+  }
+  to {
+  opacity: 1;
+  transform: translateY(0);
+  }
+  }
+
+/**
+
+- Fade out up animation
+- Element fades out while sliding up
+- 
+- Usage: Modals, tooltips (exit)
+- Duration: Typically 0.3s - 0.5s
+  */
+  @keyframes fadeOutUp {
+  from {
+  opacity: 1;
+  transform: translateY(0);
+  }
+  to {
+  opacity: 0;
+  transform: translateY(-20px);
+  }
+  }
+
+/**
+
+- Fade out down animation
+- Element fades out while sliding down
+- 
+- Usage: Notifications, alerts (exit)
+- Duration: Typically 0.3s - 0.5s
+  */
+  @keyframes fadeOutDown {
+  from {
+  opacity: 1;
+  transform: translateY(0);
+  }
+  to {
+  opacity: 0;
+  transform: translateY(20px);
+  }
+  }
+
+/* ==========================================================================
+UTILITY ANIMATIONS - Scale Effects
+========================================================================== */
+
+/**
+
+- Scale in animation
+- Element scales from 0 to full size
+- 
+- Usage: Modals, popups (entrance)
+- Duration: Typically 0.3s - 0.5s
+- Easing: ease-out (quick start, smooth finish)
+  */
+  @keyframes scaleIn {
+  from {
+  opacity: 0;
+  transform: scale(0.8);
+  }
+  to {
+  opacity: 1;
+  transform: scale(1);
+  }
+  }
+
+/**
+
+- Scale out animation
+- Element scales from full size to 0
+- 
+- Usage: Modals, popups (exit)
+- Duration: Typically 0.2s - 0.4s
+- Easing: ease-in (smooth start, quick finish)
+  */
+  @keyframes scaleOut {
+  from {
+  opacity: 1;
+  transform: scale(1);
+  }
+  to {
+  opacity: 0;
+  transform: scale(0.8);
+  }
+  }
+
+/**
+
+- Pop in animation
+- Element pops in with slight overshoot
+- 
+- Usage: Buttons, tooltips, notifications (entrance)
+- Duration: Typically 0.4s - 0.6s
+- 
+- Timeline:
+- 0% - Invisible, scaled to 0
+- 60% - Fully visible, scaled to 1.1 (overshoot)
+- 100% - Fully visible, scaled to 1 (settle)
+  */
+  @keyframes popIn {
+  0% {
+  opacity: 0;
+  transform: scale(0);
+  }
+  60% {
+  opacity: 1;
+  transform: scale(1.1);
+  }
+  100% {
+  opacity: 1;
+  transform: scale(1);
+  }
+  }
+
+/* ==========================================================================
+UTILITY ANIMATIONS - Slide Effects
+========================================================================== */
+
+/**
+
+- Slide in left animation
+- Element slides in from the left
+- 
+- Usage: Sidebars, panels (entrance from left)
+- Duration: Typically 0.4s - 0.6s
+  */
+  @keyframes slideInLeft {
+  from {
+  opacity: 0;
+  transform: translateX(-100%);
+  }
+  to {
+  opacity: 1;
+  transform: translateX(0);
+  }
+  }
+
+/**
+
+- Slide in right animation
+- Element slides in from the right
+- 
+- Usage: Sidebars, panels (entrance from right)
+- Duration: Typically 0.4s - 0.6s
+  */
+  @keyframes slideInRight {
+  from {
+  opacity: 0;
+  transform: translateX(100%);
+  }
+  to {
+  opacity: 1;
+  transform: translateX(0);
+  }
+  }
+
+/**
+
+- Slide out left animation
+- Element slides out to the left
+- 
+- Usage: Sidebars, panels (exit to left)
+- Duration: Typically 0.3s - 0.5s
+  */
+  @keyframes slideOutLeft {
+  from {
+  opacity: 1;
+  transform: translateX(0);
+  }
+  to {
+  opacity: 0;
+  transform: translateX(-100%);
+  }
+  }
+
+/**
+
+- Slide out right animation
+- Element slides out to the right
+- 
+- Usage: Sidebars, panels (exit to right)
+- Duration: Typically 0.3s - 0.5s
+  */
+  @keyframes slideOutRight {
+  from {
+  opacity: 1;
+  transform: translateX(0);
+  }
+  to {
+  opacity: 0;
+  transform: translateX(100%);
+  }
+  }
+
+/* ==========================================================================
+UTILITY ANIMATIONS - Rotation Effects
+========================================================================== */
+
+/**
+
+- Spin animation
+- Continuous 360° rotation
+- 
+- Usage: Loading spinners, icons
+- Duration: Typically 1s - 2s
+- Iteration: infinite
+  */
+  @keyframes spin {
+  from {
+  transform: rotate(0deg);
+  }
+  to {
+  transform: rotate(360deg);
+  }
+  }
+
+/**
+
+- Spin reverse animation
+- Continuous -360° rotation (counter-clockwise)
+- 
+- Usage: Loading spinners, decorative icons
+- Duration: Typically 1s - 2s
+- Iteration: infinite
+  */
+  @keyframes spinReverse {
+  from {
+  transform: rotate(0deg);
+  }
+  to {
+  transform: rotate(-360deg);
+  }
+  }
+
+/* ==========================================================================
+UTILITY ANIMATIONS - Shake & Wiggle Effects
+========================================================================== */
+
+/**
+
+- Shake animation
+- Horizontal shake effect (error feedback)
+- 
+- Usage: Form validation errors, invalid inputs
+- Duration: Typically 0.5s - 0.8s
+- 
+- Timeline: Multiple quick left-right movements
+  */
+  @keyframes shake {
+  0%, 100% {
+  transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+  transform: translateX(-10px);
+  }
+  20%, 40%, 60%, 80% {
+  transform: translateX(10px);
+  }
+  }
+
+/**
+
+- Wiggle animation
+- Slight rotation wiggle (attention grabber)
+- 
+- Usage: Call-to-action buttons, notifications
+- Duration: Typically 0.5s - 1s
+- 
+- Timeline: Multiple quick rotations
+  */
+  @keyframes wiggle {
+  0%, 100% {
+  transform: rotate(0deg);
+  }
+  25% {
+  transform: rotate(-5deg);
+  }
+  50% {
+  transform: rotate(5deg);
+  }
+  75% {
+  transform: rotate(-5deg);
+  }
+  }
+
+/* ==========================================================================
+UTILITY ANIMATIONS - Pulse Effects
+========================================================================== */
+
+/**
+
+- Pulse scale animation
+- Gentle scale pulse (attention grabber)
+- 
+- Usage: Notification badges, new feature indicators
+- Duration: Typically 1s - 2s
+- Iteration: infinite
+- 
+- Timeline:
+- 0%, 100% - Normal size
+- 50% - Scaled to 1.05
+  */
+  @keyframes pulseScale {
+  0%, 100% {
+  transform: scale(1);
+  }
+  50% {
+  transform: scale(1.05);
+  }
+  }
+
+/**
+
+- Pulse opacity animation
+- Gentle opacity pulse (breathing effect)
+- 
+- Usage: Loading indicators, status indicators
+- Duration: Typically 1.5s - 2s
+- Iteration: infinite
+- 
+- Timeline:
+- 0%, 100% - Full opacity
+- 50% - Reduced opacity (0.6)
+  */
+  @keyframes pulseOpacity {
+  0%, 100% {
+  opacity: 1;
+  }
+  50% {
+  opacity: 0.6;
+  }
+  }
+
+/* ==========================================================================
+UTILITY ANIMATIONS - Bounce Effects
+========================================================================== */
+
+/**
+
+- Bounce animation
+- Classic bounce effect
+- 
+- Usage: Success messages, completed actions
+- Duration: Typically 0.8s - 1s
+- 
+- Timeline: Multiple bounces with decreasing height
+  */
+  @keyframes bounce {
+  0%, 100% {
+  transform: translateY(0);
+  }
+  25% {
+  transform: translateY(-20px);
+  }
+  50% {
+  transform: translateY(0);
+  }
+  65% {
+  transform: translateY(-10px);
+  }
+  80% {
+  transform: translateY(0);
+  }
+  90% {
+  transform: translateY(-5px);
+  }
+  }
+
+/**
+
+- Bounce in animation
+- Element bounces in from above
+- 
+- Usage: Modal entrances, notification arrivals
+- Duration: Typically 0.8s - 1s
+  */
+  @keyframes bounceIn {
+  0% {
+  opacity: 0;
+  transform: scale(0.3) translateY(-50px);
+  }
+  50% {
+  opacity: 1;
+  transform: scale(1.05) translateY(0);
+  }
+  70% {
+  transform: scale(0.9);
+  }
+  100% {
+  transform: scale(1);
+  }
+  }
+
+/* ==========================================================================
+UTILITY ANIMATIONS - Glow Effects
+========================================================================== */
+
+/**
+
+- Glow animation
+- Generic glow pulse (can be customized with color)
+- 
+- Usage: Highlighted elements, active states
+- Duration: Typically 1.5s - 2s
+- Iteration: infinite
+- 
+- Note: Actual glow color should be set on the element
+- This just animates the intensity (opacity)
+  */
+  @keyframes glow {
+  0%, 100% {
+  box-shadow: 0 0 5px currentColor,
+  0 0 10px currentColor;
+  }
+  50% {
+  box-shadow: 0 0 10px currentColor,
+  0 0 20px currentColor,
+  0 0 30px currentColor;
+  }
+  }
+
+/**
+
+- Shimmer animation
+- Diagonal shimmer effect (loading state)
+- 
+- Usage: Skeleton screens, loading placeholders
+- Duration: Typically 1.5s - 2s
+- Iteration: infinite
+- 
+- Note: Requires gradient background to be set on element
+  */
+  @keyframes shimmer {
+  0% {
+  background-position: -200% 0;
+  }
+  100% {
+  background-position: 200% 0;
+  }
+  }
+
+/* ==========================================================================
+UTILITY ANIMATIONS - Progress Indicators
+========================================================================== */
+
+/**
+
+- Progress indeterminate animation
+- Indeterminate progress bar animation
+- 
+- Usage: Progress bars when duration is unknown
+- Duration: Typically 1.5s - 2s
+- Iteration: infinite
+  */
+  @keyframes progressIndeterminate {
+  0% {
+  transform: translateX(-100%);
+  }
+  50% {
+  transform: translateX(0);
+  }
+  100% {
+  transform: translateX(100%);
+  }
+  }
+
+/**
+
+- Dots loading animation
+- Animated loading dots (…)
+- 
+- Usage: “Loading…” text
+- Duration: Typically 1.5s
+- Iteration: infinite
+- 
+- Note: Apply to ::after pseudo-element containing “…”
+  */
+  @keyframes dotsLoading {
+  0% {
+  content: ‘.’;
+  }
+  33% {
+  content: ‘..’;
+  }
+  66% {
+  content: ‘…’;
+  }
+  100% {
+  content: ‘.’;
+  }
+  }
+
+/* ==========================================================================
+UTILITY CLASSES - Apply Animations
+========================================================================== */
+
+/**
+
+- Utility classes to apply animations
+- Add these classes to elements to trigger animations
+  */
+
+/* Fade animations */
+.animate-fadeIn {
+animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-fadeOut {
+animation: fadeOut 0.3s ease-in forwards;
+}
+
+.animate-fadeInUp {
+animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-fadeInDown {
+animation: fadeInDown 0.5s ease-out forwards;
+}
+
+/* Scale animations */
+.animate-scaleIn {
+animation: scaleIn 0.4s ease-out forwards;
+}
+
+.animate-scaleOut {
+animation: scaleOut 0.3s ease-in forwards;
+}
+
+.animate-popIn {
+animation: popIn 0.5s ease-out forwards;
+}
+
+/* Slide animations */
+.animate-slideInLeft {
+animation: slideInLeft 0.5s ease-out forwards;
+}
+
+.animate-slideInRight {
+animation: slideInRight 0.5s ease-out forwards;
+}
+
+/* Spin animations */
+.animate-spin {
+animation: spin 1s linear infinite;
+}
+
+.animate-spinReverse {
+animation: spinReverse 1s linear infinite;
+}
+
+/* Pulse animations */
+.animate-pulseScale {
+animation: pulseScale 2s ease-in-out infinite;
+}
+
+.animate-pulseOpacity {
+animation: pulseOpacity 2s ease-in-out infinite;
+}
+
+/* Attention animations */
+.animate-shake {
+animation: shake 0.6s ease-in-out;
+}
+
+.animate-wiggle {
+animation: wiggle 0.8s ease-in-out;
+}
+
+.animate-bounce {
+animation: bounce 1s ease-out;
+}
+
+/* Glow animations */
+.animate-glow {
+animation: glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+animation: shimmer 2s linear infinite;
+}
+
+/* ==========================================================================
+REDUCED MOTION SUPPORT
+========================================================================== */
+
+/**
+
+- Respect user’s preference for reduced motion
+- Disables or simplifies animations for accessibility
+- 
+- When prefers-reduced-motion is set:
+- - Disable all animations
+- - Use instant transitions instead
+- - Keep critical state changes (opacity) but remove motion
+    */
+    @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    }
+
+/**
+
+- Allow opacity changes for fade effects
+- But remove all transform-based motion
+  */
+  .animate-fadeIn,
+  .animate-fadeOut,
+  .animate-pulseOpacity {
+  animation-duration: 0.2s !important;
+  }
+
+/**
+
+- Completely disable these motion-heavy animations
+  */
+  .animate-spin,
+  .animate-spinReverse,
+  .animate-shake,
+  .animate-wiggle,
+  .animate-bounce {
+  animation: none !important;
+  }
+  }
