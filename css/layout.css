@@ -1,1079 +1,1155 @@
 /* ============================================================================
-   LAYOUT.CSS - Page Structure & Component Positioning
-   ============================================================================
-   This file defines the overall page structure, major container layouts,
-   and positioning for all UI components in the Pattern Checker app.
-   
-   Structure hierarchy:
-   1. Root container (#container)
-   2. Header section (#header)
-   3. Canvas area (#canvas-wrapper)
-   4. Controls section (#controls)
-   5. Footer (#footer)
-   6. Modals & overlays
-   
-   All layouts use Flexbox for responsive, maintainable positioning.
-   ============================================================================ */
+LAYOUT.CSS - Page Structure & Component Positioning
+
+This file defines the overall page structure, major container layouts,
+and positioning for all UI components in the Pattern Checker app.
+
+Structure hierarchy:
+
+1. Root container (#container)
+1. Header section (#header)
+1. Canvas area (#canvas-wrapper)
+1. Controls section (#controls)
+1. Footer (#footer)
+1. Modals & overlays
+
+All layouts use Flexbox for responsive, maintainable positioning.
+============================================================================ */
 
 /* ==========================================================================
-   ROOT CONTAINER
-   ========================================================================== */
+ROOT CONTAINER
+========================================================================== */
 
 /**
- * Main app container
- * - Full viewport height (100vh)
- * - Flexbox column layout stacks header → canvas → controls → footer
- * - Ensures footer stays at bottom even with little content
- */
-#container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+
+- Main app container
+- - Full viewport height (100vh)
+- - Flexbox column layout stacks header → canvas → controls → footer
+- - Ensures footer stays at bottom even with little content
+    */
+    #container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    }
 
 /* ==========================================================================
-   HEADER SECTION
-   ========================================================================== */
+HEADER SECTION
+========================================================================== */
 
 /**
- * Top navigation/header bar
- * Contains: Logo, title, upload button, sample dropdown, export button
- * 
- * Layout:
- * - Flexbox with space-between for logo-left, buttons-right
- * - Wraps on smaller screens (flex-wrap)
- * - Glass morphism background with blur effect
- */
-#header {
-  padding: var(--spacing-lg) var(--spacing-xl);
-  
-  /* Glass morphism effect */
-  background: var(--glass-dark);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  
-  /* Border and shadow for depth */
-  border-bottom: 1px solid var(--border-light);
-  box-shadow: var(--shadow-elevated), var(--shadow-inset-top);
-  
-  /* Layout */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-xl);
-  flex-wrap: wrap;
+
+- Top navigation/header bar
+- Contains: Logo, title, upload button, sample dropdown, export button
+- 
+- Layout:
+- - Flexbox with space-between for logo-left, buttons-right
+- - Wraps on smaller screens (flex-wrap)
+- - Glass morphism background with blur effect
+    */
+    #header {
+    padding: var(–spacing-lg) var(–spacing-xl);
+
+/* Glass morphism effect */
+background: var(–glass-dark);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+
+/* Border and shadow for depth */
+border-bottom: 1px solid var(–border-light);
+box-shadow: var(–shadow-elevated), var(–shadow-inset-top);
+
+/* Layout */
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: var(–spacing-xl);
+flex-wrap: wrap;
 }
 
-/* --------------------------------------------------------------------------
-   Header: Logo Section
-   -------------------------------------------------------------------------- */
+/* –––––––––––––––––––––––––––––––––––––
+Header: Logo Section
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Logo + title group on left side of header
- * Flexbox row with gap between logo image and text
- */
-.logo-section {
+
+- Logo + title group on left side of header
+- Flexbox row with gap between logo image and text
+  */
+  .logo-section {
   display: flex;
   align-items: center;
-  gap: var(--spacing-lg);
-}
+  gap: var(–spacing-lg);
+  }
 
 /**
- * Logo image
- * Fixed height, auto width to maintain aspect ratio
- */
-#logo {
+
+- Logo image
+- Fixed height, auto width to maintain aspect ratio
+  */
+  #logo {
   height: 42px;
   width: auto;
   cursor: pointer;
-  transition: transform var(--transition-normal), 
-              filter var(--transition-normal);
-  
-  /* Initial state: no glow */
-  filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
-  
-  /* Pulsing glow animation (defined at bottom of file) */
-  animation: pulse 2s ease-in-out infinite;
+  transition: transform var(–transition-normal),
+  filter var(–transition-normal);
+
+/* Initial state: no glow */
+filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
+
+/* Pulsing glow animation (defined at bottom of file) */
+animation: pulse 2s ease-in-out infinite;
 }
 
 /**
- * Logo hover state
- * Subtle scale up for interactivity feedback
- */
-#logo:hover {
+
+- Logo hover state
+- Subtle scale up for interactivity feedback
+  */
+  #logo:hover {
   transform: scale(1.05);
-}
+  }
 
 /**
- * Logo active/click state
- * Triggers glow-pulse animation (defined at bottom of file)
- */
-#logo:active {
+
+- Logo active/click state
+- Triggers glow-pulse animation (defined at bottom of file)
+  */
+  #logo:active {
   animation: glow-pulse 0.4s ease-out;
   transform: scale(0.98);
-}
+  }
 
 /**
- * App title text
- * Purple gradient text effect
- */
-.title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  
-  /* Gradient text effect */
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  
-  margin: 0;
+
+- App title text
+- Purple gradient text effect
+  */
+  .title {
+  font-size: var(–font-size-2xl);
+  font-weight: var(–font-weight-bold);
+
+/* Gradient text effect */
+background: var(–gradient-primary);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+
+margin: 0;
 }
 
-/* --------------------------------------------------------------------------
-   Header: Button Group
-   -------------------------------------------------------------------------- */
+/* –––––––––––––––––––––––––––––––––––––
+Header: Button Group
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Header buttons container (right side)
- * Contains: Upload button, Sample dropdown, Export button
- * 
- * Flexbox row that wraps and centers on small screens
- */
-.header-buttons {
+
+- Header buttons container (right side)
+- Contains: Upload button, Sample dropdown, Export button
+- 
+- Flexbox row that wraps and centers on small screens
+  */
+  .header-buttons {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(–spacing-md);
   flex-wrap: nowrap;
   justify-content: center;
   width: 100%;
   max-width: 600px;
-}
+  }
 
 /**
- * File input wrapper
- * Positions hidden file input + visible styled button
- */
-.file-input-wrapper {
+
+- File input wrapper
+- Positions hidden file input + visible styled button
+  */
+  .file-input-wrapper {
   position: relative;
   display: flex;
   flex: 1;
-}
+  }
 
 /**
- * Hidden file input
- * Actual <input type="file"> is hidden off-screen
- * Triggered by clicking the styled .upload-btn
- */
-.file-input-wrapper input[type="file"] {
+
+- Hidden file input
+- Actual <input type="file"> is hidden off-screen
+- Triggered by clicking the styled .upload-btn
+  */
+  .file-input-wrapper input[type=“file”] {
   position: absolute;
   left: -9999px;
   opacity: 0;
   pointer-events: none;
-}
+  }
 
 /* ==========================================================================
-   CANVAS AREA
-   ========================================================================== */
+CANVAS AREA
+========================================================================== */
 
 /**
- * Main canvas container
- * - Takes up all remaining vertical space (flex: 1)
- * - Centers the canvas both horizontally and vertically
- * - Contains the pattern preview canvas and empty state message
- */
-#canvas-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-xl);
-  position: relative;
-  
-  /* Disable default touch actions (we handle pan/zoom custom) */
-  touch-action: none;
+
+- Main canvas container
+- - Takes up all remaining vertical space (flex: 1)
+- - Centers the canvas both horizontally and vertically
+- - Contains the pattern preview canvas and empty state message
+    */
+    #canvas-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(–spacing-xl);
+    position: relative;
+
+/* Disable default touch actions (we handle pan/zoom custom) */
+touch-action: none;
 }
 
 /**
- * The actual canvas element
- * - Square aspect ratio (aspect-ratio: 1)
- * - Maximum width to fit screen
- * - Glass effect background
- * - Rounded corners and shadow for elevation
- * - Cursor changes based on state (pointer, grab, grabbing)
- */
-#canvas {
-  max-width: 1200px;
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--border-radius-xl);
-  box-shadow: var(--shadow-strong);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  
-  /* Glass effect when empty */
-  background: rgba(255, 255, 255, 0.015);
-  backdrop-filter: var(--backdrop-blur-subtle);
-  -webkit-backdrop-filter: var(--backdrop-blur-subtle);
-  border: 1px solid var(--border-subtle);
-  
-  /* Custom touch handling */
-  touch-action: none;
+
+- The actual canvas element
+- - Square aspect ratio (aspect-ratio: 1)
+- - Maximum width to fit screen
+- - Glass effect background
+- - Rounded corners and shadow for elevation
+- - Cursor changes based on state (pointer, grab, grabbing)
+    */
+    #canvas {
+    max-width: 1200px;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(–border-radius-xl);
+    box-shadow: var(–shadow-strong);
+    cursor: pointer;
+    transition: all var(–transition-normal);
+
+/* Glass effect when empty */
+background: rgba(255, 255, 255, 0.015);
+backdrop-filter: var(–backdrop-blur-subtle);
+-webkit-backdrop-filter: var(–backdrop-blur-subtle);
+border: 1px solid var(–border-subtle);
+
+/* Custom touch handling */
+touch-action: none;
 }
 
 /**
- * Canvas state: Image loaded
- * Changes cursor to indicate draggable
- */
-#canvas.has-image {
+
+- Canvas state: Image loaded
+- Changes cursor to indicate draggable
+  */
+  #canvas.has-image {
   cursor: grab;
-}
+  }
 
 /**
- * Canvas state: Actively dragging
- */
-#canvas.has-image:active {
+
+- Canvas state: Actively dragging
+  */
+  #canvas.has-image:active {
   cursor: grabbing;
-}
+  }
 
 /**
- * Canvas hover effect
- * Slightly stronger shadow for depth
- */
-#canvas:hover {
-  box-shadow: var(--shadow-elevated-hover);
-}
 
-/* --------------------------------------------------------------------------
-   Canvas: Empty State
-   -------------------------------------------------------------------------- */
+- Canvas hover effect
+- Slightly stronger shadow for depth
+  */
+  #canvas:hover {
+  box-shadow: var(–shadow-elevated-hover);
+  }
 
-/**
- * Empty state message (shown when no pattern is loaded)
- * - Centered absolutely within canvas-wrapper
- * - Pointer-events none so clicks pass through to canvas
- * - Fades in/out based on .visible class
- */
-.empty-state {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-}
+/* –––––––––––––––––––––––––––––––––––––
+Canvas: Empty State
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Empty state visible
- * Shown when no image is loaded
- */
-.empty-state.visible {
+
+- Empty state message (shown when no pattern is loaded)
+- - Centered absolutely within canvas-wrapper
+- - Pointer-events none so clicks pass through to canvas
+- - Fades in/out based on .visible class
+    */
+    .empty-state {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(–transition-normal);
+    }
+
+/**
+
+- Empty state visible
+- Shown when no image is loaded
+  */
+  .empty-state.visible {
   opacity: 1;
-}
+  }
 
 /**
- * Empty state icon
- * Large emoji/icon for visual interest
- */
-.empty-state-icon {
+
+- Empty state icon
+- Large emoji/icon for visual interest
+  */
+  .empty-state-icon {
   font-size: 4rem;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(–spacing-md);
   opacity: 0.6;
-}
+  }
 
 /**
- * Empty state primary text
- */
-.empty-state-text {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--spacing-xs);
-  color: var(--color-gray);
-}
+
+- Empty state primary text
+  */
+  .empty-state-text {
+  font-size: var(–font-size-xl);
+  font-weight: var(–font-weight-semibold);
+  margin-bottom: var(–spacing-xs);
+  color: var(–color-gray);
+  }
 
 /**
- * Empty state secondary text
- */
-.empty-state-subtext {
-  font-size: var(--font-size-base);
-  color: var(--color-gray-medium);
-}
+
+- Empty state secondary text
+  */
+  .empty-state-subtext {
+  font-size: var(–font-size-base);
+  color: var(–color-gray-medium);
+  }
 
 /* ==========================================================================
-   CONTROLS SECTION
-   ========================================================================== */
+CONTROLS SECTION
+========================================================================== */
 
 /**
- * Bottom controls panel
- * Contains all settings, sliders, tools, etc.
- * - Full width
- * - Glass effect background matching header
- * - Padding for breathing room
- */
-#controls {
-  padding: var(--spacing-xl);
-  
-  /* Glass morphism effect */
-  background: var(--glass-dark);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  
-  /* Border and shadow for depth */
-  border-top: 1px solid var(--border-light);
-  box-shadow: var(--shadow-elevated-reverse), var(--shadow-inset-top);
+
+- Bottom controls panel
+- Contains all settings, sliders, tools, etc.
+- - Full width
+- - Glass effect background matching header
+- - Padding for breathing room
+    */
+    #controls {
+    padding: var(–spacing-xl);
+
+/* Glass morphism effect */
+background: var(–glass-dark);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+
+/* Border and shadow for depth */
+border-top: 1px solid var(–border-light);
+box-shadow: var(–shadow-elevated-reverse), var(–shadow-inset-top);
 }
 
-/* --------------------------------------------------------------------------
-   Controls: Master Dropdown Container
-   -------------------------------------------------------------------------- */
+/* –––––––––––––––––––––––––––––––––––––
+Controls: Master Dropdown Container
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Master dropdown wrapper
- * Contains the main settings dropdown (Preview Options, Pattern Transform, etc.)
- * Centered with max-width, margin below for spacing
- */
-.master-dropdown-wrapper {
+
+- Master dropdown wrapper
+- Contains the main settings dropdown (Preview Options, Pattern Transform, etc.)
+- Centered with max-width, margin below for spacing
+  */
+  .master-dropdown-wrapper {
   max-width: 360px;
-  margin: 0 auto var(--spacing-lg);
-}
+  margin: 0 auto var(–spacing-lg);
+  }
 
-/* --------------------------------------------------------------------------
-   Controls: Instructions Accordion
-   -------------------------------------------------------------------------- */
-
-/**
- * Instructions accordion container
- * Collapsible help section
- */
-.instructions-accordion {
-  margin-bottom: var(--spacing-lg);
-}
+/* –––––––––––––––––––––––––––––––––––––
+Controls: Instructions Accordion
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Instructions accordion header (clickable)
- * - Flexbox with space-between for text and arrow
- * - Glass button style with green glow
- * - User-select none to prevent text selection on clicks
- */
-.instructions-accordion-header {
-  padding: var(--spacing-md) var(--spacing-md);
-  font-size: var(--font-size-base);
-  border-radius: var(--border-radius-lg);
-  
-  /* Glass button style */
-  background: var(--glass-light);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-medium), var(--glow-green-medium), 
-              var(--shadow-inset-top), var(--shadow-inset-bottom);
-  
-  color: var(--color-off-white);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  user-select: none;
-}
+
+- Instructions accordion container
+- Collapsible help section
+  */
+  .instructions-accordion {
+  margin-bottom: var(–spacing-lg);
+  }
 
 /**
- * Instructions header hover state
- */
-.instructions-accordion-header:hover {
-  background: var(--glass-light-hover);
-  border-color: var(--border-bright);
-  box-shadow: var(--shadow-strong), var(--glow-green-strong),
-              var(--shadow-inset-top-hover), var(--shadow-inset-bottom);
+
+- Instructions accordion header (clickable)
+- - Flexbox with space-between for text and arrow
+- - Glass button style with green glow
+- - User-select none to prevent text selection on clicks
+    */
+    .instructions-accordion-header {
+    padding: var(–spacing-md) var(–spacing-md);
+    font-size: var(–font-size-base);
+    border-radius: var(–border-radius-lg);
+
+/* Glass button style */
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–glow-green-medium),
+var(–shadow-inset-top), var(–shadow-inset-bottom);
+
+color: var(–color-off-white);
+cursor: pointer;
+transition: all var(–transition-normal);
+
+display: flex;
+justify-content: space-between;
+align-items: center;
+user-select: none;
 }
 
 /**
- * Instructions accordion content (collapsible)
- * - max-height for smooth expand/collapse animation
- * - Hidden overflow when collapsed
- */
-.instructions-accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height var(--transition-normal) ease;
-  margin-top: var(--spacing-xs);
-}
+
+- Instructions header hover state
+  */
+  .instructions-accordion-header:hover {
+  background: var(–glass-light-hover);
+  border-color: var(–border-bright);
+  box-shadow: var(–shadow-strong), var(–glow-green-strong),
+  var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+  }
 
 /**
- * Instructions accordion expanded state
- * Large max-height allows for all content
- */
-.instructions-accordion.open .instructions-accordion-content {
+
+- Instructions accordion content (collapsible)
+- - max-height for smooth expand/collapse animation
+- - Hidden overflow when collapsed
+    */
+    .instructions-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(–transition-normal) ease;
+    margin-top: var(–spacing-xs);
+    }
+
+/**
+
+- Instructions accordion expanded state
+- Large max-height allows for all content
+  */
+  .instructions-accordion.open .instructions-accordion-content {
   max-height: 5000px;
   overflow-y: auto;
-}
+  }
 
 /**
- * Instructions card (content container)
- * Glass card with scrollable content
- */
-.instructions-card {
-  background: var(--glass-light);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-medium), var(--shadow-inset-top), 
-              var(--shadow-inset-bottom);
-  padding: var(--spacing-lg);
+
+- Instructions card (content container)
+- Glass card with scrollable content
+  */
+  .instructions-card {
+  background: var(–glass-light);
+  backdrop-filter: var(–backdrop-blur-strong);
+  -webkit-backdrop-filter: var(–backdrop-blur-strong);
+  border-radius: var(–border-radius-lg);
+  border: 1px solid var(–border-medium);
+  box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+  var(–shadow-inset-bottom);
+  padding: var(–spacing-lg);
   max-height: 70vh;
   overflow-y: auto;
-}
+  }
 
 /**
- * Instructions card heading styles
- */
-.instructions-card h3 {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  background: var(--gradient-primary);
+
+- Instructions card heading styles
+  */
+  .instructions-card h3 {
+  font-size: var(–font-size-lg);
+  font-weight: var(–font-weight-bold);
+  background: var(–gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 0 0 var(--spacing-md) 0;
-}
+  margin: 0 0 var(–spacing-md) 0;
+  }
 
 .instructions-card h4 {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary-green);
-  margin: var(--spacing-md) 0 var(--spacing-xs) 0;
+font-size: var(–font-size-base);
+font-weight: var(–font-weight-bold);
+color: var(–color-primary-green);
+margin: var(–spacing-md) 0 var(–spacing-xs) 0;
 }
 
 /**
- * Instructions card text styles
- */
-.instructions-card p {
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-gray-lighter);
-  margin: 0 0 var(--spacing-md) 0;
-}
+
+- Instructions card text styles
+  */
+  .instructions-card p {
+  font-size: var(–font-size-sm);
+  line-height: var(–line-height-relaxed);
+  color: var(–color-gray-lighter);
+  margin: 0 0 var(–spacing-md) 0;
+  }
 
 .instructions-card ul {
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-gray-lighter);
-  margin: 0 0 var(--spacing-md) 0;
-  padding-left: var(--spacing-lg);
+font-size: var(–font-size-sm);
+line-height: var(–line-height-relaxed);
+color: var(–color-gray-lighter);
+margin: 0 0 var(–spacing-md) 0;
+padding-left: var(–spacing-lg);
 }
 
 .instructions-card li {
-  margin-bottom: var(--spacing-xs);
+margin-bottom: var(–spacing-xs);
 }
 
-/* --------------------------------------------------------------------------
-   Controls: Section Containers
-   -------------------------------------------------------------------------- */
+/* –––––––––––––––––––––––––––––––––––––
+Controls: Section Containers
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Control sections (hidden by default)
- * Toggled visible by master dropdown
- * - Preview Options (display settings)
- * - Pattern Transform (sliders)
- * - Tools (color palette, calculator, etc.)
- * - Stores (mockups and POD links)
- */
-.controls-section {
-  display: none;
-  transition: all var(--transition-normal);
-  margin-top: var(--spacing-lg);
-}
+
+- Control sections (hidden by default)
+- Toggled visible by master dropdown
+- - Preview Options (display settings)
+- - Pattern Transform (sliders)
+- - Tools (color palette, calculator, etc.)
+- - Stores (mockups and POD links)
+    */
+    .controls-section {
+    display: none;
+    transition: all var(–transition-normal);
+    margin-top: var(–spacing-lg);
+    }
 
 /**
- * Active section (shown)
- */
-.controls-section.active {
+
+- Active section (shown)
+  */
+  .controls-section.active {
   display: block;
-}
+  }
 
 /**
- * Settings dropdowns container
- * Vertical stack of dropdowns with consistent spacing
- */
-.settings-dropdowns,
-.sliders-container {
+
+- Settings dropdowns container
+- Vertical stack of dropdowns with consistent spacing
+  */
+  .settings-dropdowns,
+  .sliders-container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(–spacing-md);
   max-width: 360px;
   margin: 0 auto;
-}
+  }
 
 /**
- * Section label
- * Small uppercase label above groups of controls
- */
-.section-label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary-purple);
+
+- Section label
+- Small uppercase label above groups of controls
+  */
+  .section-label {
+  font-size: var(–font-size-xs);
+  font-weight: var(–font-weight-bold);
+  color: var(–color-primary-purple);
   text-align: center;
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(–spacing-xs);
   text-transform: uppercase;
   letter-spacing: 1px;
-}
+  }
 
-/* --------------------------------------------------------------------------
-   Controls: Preview Options Groups
-   -------------------------------------------------------------------------- */
-
-/**
- * Preview group container
- * Groups related preview settings together
- */
-.preview-group {
-  margin-bottom: var(--spacing-lg);
-}
+/* –––––––––––––––––––––––––––––––––––––
+Controls: Preview Options Groups
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Preview group title
- * Small uppercase label above each settings group
- */
-.preview-group-title {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary-purple);
+
+- Preview group container
+- Groups related preview settings together
+  */
+  .preview-group {
+  margin-bottom: var(–spacing-lg);
+  }
+
+/**
+
+- Preview group title
+- Small uppercase label above each settings group
+  */
+  .preview-group-title {
+  font-size: var(–font-size-xs);
+  font-weight: var(–font-weight-bold);
+  color: var(–color-primary-purple);
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  margin-bottom: var(--spacing-md);
-  padding-left: var(--spacing-xs);
+  margin-bottom: var(–spacing-md);
+  padding-left: var(–spacing-xs);
   opacity: 0.8;
-}
+  }
 
 /**
- * Preview group content
- * Vertical stack of dropdowns/controls
- */
-.preview-group-content {
+
+- Preview group content
+- Vertical stack of dropdowns/controls
+  */
+  .preview-group-content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-}
+  gap: var(–spacing-md);
+  }
 
-/* --------------------------------------------------------------------------
-   Controls: Slider Dropdowns
-   -------------------------------------------------------------------------- */
+/* –––––––––––––––––––––––––––––––––––––
+Controls: Slider Dropdowns
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Slider dropdown container
- * Collapsible slider with header showing current value
- */
-.slider-dropdown {
+
+- Slider dropdown container
+- Collapsible slider with header showing current value
+  */
+  .slider-dropdown {
   margin-bottom: 0;
+  }
+
+/**
+
+- Slider dropdown header (clickable)
+- Shows label and current value
+- Flexbox space-between layout
+  */
+  .slider-dropdown-header {
+  padding: var(–spacing-md) var(–spacing-md);
+  font-size: var(–font-size-base);
+  border-radius: var(–border-radius-lg);
+
+/* Glass button style */
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+var(–shadow-inset-bottom);
+
+color: var(–color-off-white);
+cursor: pointer;
+transition: all var(–transition-normal);
+
+display: flex;
+justify-content: space-between;
+align-items: center;
+user-select: none;
 }
 
 /**
- * Slider dropdown header (clickable)
- * Shows label and current value
- * Flexbox space-between layout
- */
-.slider-dropdown-header {
-  padding: var(--spacing-md) var(--spacing-md);
-  font-size: var(--font-size-base);
-  border-radius: var(--border-radius-lg);
-  
-  /* Glass button style */
-  background: var(--glass-light);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-medium), var(--shadow-inset-top), 
-              var(--shadow-inset-bottom);
-  
-  color: var(--color-off-white);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  user-select: none;
-}
 
-/**
- * Slider dropdown content (collapsible)
- */
-.slider-dropdown-content {
+- Slider dropdown content (collapsible)
+  */
+  .slider-dropdown-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height var(--transition-normal) ease;
-  margin-top: var(--spacing-xs);
-}
+  transition: max-height var(–transition-normal) ease;
+  margin-top: var(–spacing-xs);
+  }
 
 /**
- * Slider dropdown expanded state
- */
-.slider-dropdown.open .slider-dropdown-content {
+
+- Slider dropdown expanded state
+  */
+  .slider-dropdown.open .slider-dropdown-content {
   max-height: 200px;
-}
+  }
 
 /**
- * Slider group container
- * Contains the actual slider input
- */
-.slider-group {
+
+- Slider group container
+- Contains the actual slider input
+  */
+  .slider-group {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  padding: var(--spacing-lg) var(--spacing-lg);
-  
-  /* Glass card style */
-  background: var(--glass-light);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-medium), var(--shadow-inset-top), 
-              var(--shadow-inset-bottom);
-  
-  position: relative;
+  gap: var(–spacing-md);
+  padding: var(–spacing-lg) var(–spacing-lg);
+
+/* Glass card style */
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border-radius: var(–border-radius-lg);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+var(–shadow-inset-bottom);
+
+position: relative;
 }
 
 /**
- * Slider wrapper
- * Contains the range input
- */
-.slider-wrapper {
+
+- Slider wrapper
+- Contains the range input
+  */
+  .slider-wrapper {
   position: relative;
-}
+  }
 
 /**
- * Centered slider (for zoom, scale with center point)
- * Adds visual center line indicator
- */
-.slider-wrapper.centered::before {
-  content: '';
+
+- Centered slider (for zoom, scale with center point)
+- Adds visual center line indicator
+  */
+  .slider-wrapper.centered::before {
+  content: ‘’;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 2px;
   height: 20px;
-  background: var(--color-primary-purple-alpha);
+  background: var(–color-primary-purple-alpha);
   pointer-events: none;
   z-index: 1;
-}
+  }
 
 /**
- * Slider value display
- * Shows current value (e.g., "50%", "1.5×")
- */
-.slider-value {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-primary-purple);
+
+- Slider value display
+- Shows current value (e.g., “50%”, “1.5×”)
+  */
+  .slider-value {
+  font-size: var(–font-size-sm);
+  font-weight: var(–font-weight-semibold);
+  color: var(–color-primary-purple);
   min-width: 45px;
   text-align: right;
-}
+  }
 
-/* --------------------------------------------------------------------------
-   Controls: Zoom Slider (separate component)
-   -------------------------------------------------------------------------- */
-
-/**
- * Zoom slider wrapper
- * Special slider for canvas zoom control
- */
-.zoom-slider-wrapper {
-  margin-bottom: var(--spacing-md);
-}
+/* –––––––––––––––––––––––––––––––––––––
+Controls: Zoom Slider (separate component)
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Zoom slider header
- * Purple glow to distinguish from other sliders
- */
-.zoom-slider-header {
-  padding: var(--spacing-md) var(--spacing-md);
-  font-size: var(--font-size-base);
-  border-radius: var(--border-radius-lg);
-  
-  /* Glass button with purple glow */
-  background: var(--glass-light);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-medium), var(--glow-purple-medium),
-              var(--shadow-inset-top), var(--shadow-inset-bottom);
-  
-  color: var(--color-off-white);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  user-select: none;
-}
+
+- Zoom slider wrapper
+- Special slider for canvas zoom control
+  */
+  .zoom-slider-wrapper {
+  margin-bottom: var(–spacing-md);
+  }
 
 /**
- * Zoom slider header hover
- */
-.zoom-slider-header:hover {
-  background: var(--glass-light-hover);
-  border-color: var(--border-bright);
-  box-shadow: var(--shadow-strong), var(--glow-purple-strong),
-              var(--shadow-inset-top-hover), var(--shadow-inset-bottom);
+
+- Zoom slider header
+- Purple glow to distinguish from other sliders
+  */
+  .zoom-slider-header {
+  padding: var(–spacing-md) var(–spacing-md);
+  font-size: var(–font-size-base);
+  border-radius: var(–border-radius-lg);
+
+/* Glass button with purple glow */
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-medium), var(–glow-purple-medium),
+var(–shadow-inset-top), var(–shadow-inset-bottom);
+
+color: var(–color-off-white);
+cursor: pointer;
+transition: all var(–transition-normal);
+
+display: flex;
+justify-content: space-between;
+align-items: center;
+user-select: none;
 }
 
 /**
- * Zoom slider content
- */
-.zoom-slider-content {
+
+- Zoom slider header hover
+  */
+  .zoom-slider-header:hover {
+  background: var(–glass-light-hover);
+  border-color: var(–border-bright);
+  box-shadow: var(–shadow-strong), var(–glow-purple-strong),
+  var(–shadow-inset-top-hover), var(–shadow-inset-bottom);
+  }
+
+/**
+
+- Zoom slider content
+  */
+  .zoom-slider-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height var(--transition-normal) ease;
-  margin-top: var(--spacing-xs);
-}
+  transition: max-height var(–transition-normal) ease;
+  margin-top: var(–spacing-xs);
+  }
 
 /**
- * Zoom slider expanded
- */
-.zoom-slider-wrapper.open .zoom-slider-content {
+
+- Zoom slider expanded
+  */
+  .zoom-slider-wrapper.open .zoom-slider-content {
   max-height: 200px;
-}
+  }
 
-/* --------------------------------------------------------------------------
-   Controls: Tools Section
-   -------------------------------------------------------------------------- */
+/* –––––––––––––––––––––––––––––––––––––
+Controls: Tools Section
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Tools section container
- * Hidden by default, shown when "Tools" selected in master dropdown
- */
-.tools-section {
+
+- Tools section container
+- Hidden by default, shown when “Tools” selected in master dropdown
+  */
+  .tools-section {
   display: none;
-  margin-top: var(--spacing-lg);
-}
+  margin-top: var(–spacing-lg);
+  }
 
 /**
- * Tools section active
- */
-.tools-section.active {
+
+- Tools section active
+  */
+  .tools-section.active {
   display: block;
-}
+  }
 
 /**
- * Tool card
- * Contains individual tools (color palette, calculator, etc.)
- */
-.tool-card {
-  background: var(--glass-light);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-medium), var(--shadow-inset-top), 
-              var(--shadow-inset-bottom);
-  padding: var(--spacing-lg) var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
+
+- Tool card
+- Contains individual tools (color palette, calculator, etc.)
+  */
+  .tool-card {
+  background: var(–glass-light);
+  backdrop-filter: var(–backdrop-blur-strong);
+  -webkit-backdrop-filter: var(–backdrop-blur-strong);
+  border-radius: var(–border-radius-lg);
+  border: 1px solid var(–border-medium);
+  box-shadow: var(–shadow-medium), var(–shadow-inset-top),
+  var(–shadow-inset-bottom);
+  padding: var(–spacing-lg) var(–spacing-lg);
+  margin-bottom: var(–spacing-md);
   max-width: 360px;
   margin-left: auto;
   margin-right: auto;
-}
+  }
 
 /**
- * Tool card title
- * Gradient text with optional toggle button
- */
-.tool-title {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-bold);
-  background: var(--gradient-primary);
+
+- Tool card title
+- Gradient text with optional toggle button
+  */
+  .tool-title {
+  font-size: var(–font-size-md);
+  font-weight: var(–font-weight-bold);
+  background: var(–gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 0 0 var(--spacing-md) 0;
+  margin: 0 0 var(–spacing-md) 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+  }
 
-/* --------------------------------------------------------------------------
-   Controls: Stores Section (Mockups & POD Links)
-   -------------------------------------------------------------------------- */
+/* –––––––––––––––––––––––––––––––––––––
+Controls: Stores Section (Mockups & POD Links)
+––––––––––––––––––––––––––––––––––––– */
 
 /**
- * Stores section container
- * Hidden by default, shown when "Stores" selected
- */
-.stores-section {
+
+- Stores section container
+- Hidden by default, shown when “Stores” selected
+  */
+  .stores-section {
   display: none;
-  margin-top: var(--spacing-lg);
-}
+  margin-top: var(–spacing-lg);
+  }
 
 /**
- * Stores section active
- */
-.stores-section.active {
+
+- Stores section active
+  */
+  .stores-section.active {
   display: block;
-}
+  }
 
 /**
- * Stores intro text
- */
-.stores-intro {
+
+- Stores intro text
+  */
+  .stores-intro {
   text-align: center;
-  margin-bottom: var(--spacing-lg);
-}
+  margin-bottom: var(–spacing-lg);
+  }
 
 .stores-intro-text {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-gray);
-  margin-bottom: var(--spacing-md);
+font-size: var(–font-size-lg);
+font-weight: var(–font-weight-semibold);
+color: var(–color-gray);
+margin-bottom: var(–spacing-md);
 }
 
 /**
- * Stores dropdowns container
- */
-.stores-dropdowns {
+
+- Stores dropdowns container
+  */
+  .stores-dropdowns {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(–spacing-md);
   max-width: 360px;
-  margin: 0 auto var(--spacing-xl);
-}
+  margin: 0 auto var(–spacing-xl);
+  }
 
 /**
- * Mockup sliders container
- */
-.mockup-sliders {
+
+- Mockup sliders container
+  */
+  .mockup-sliders {
   max-width: 360px;
   margin: 0 auto;
-  padding-top: var(--spacing-lg);
-  border-top: 1px solid var(--border-light);
-}
+  padding-top: var(–spacing-lg);
+  border-top: 1px solid var(–border-light);
+  }
 
 /**
- * Mockup section label
- */
-.mockup-section-label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary-purple);
+
+- Mockup section label
+  */
+  .mockup-section-label {
+  font-size: var(–font-size-xs);
+  font-weight: var(–font-weight-bold);
+  color: var(–color-primary-purple);
   text-align: center;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(–spacing-md);
   text-transform: uppercase;
   letter-spacing: 1px;
-}
+  }
 
 /* ==========================================================================
-   FOOTER SECTION
-   ========================================================================== */
+FOOTER SECTION
+========================================================================== */
 
 /**
- * Page footer
- * - Glass effect matching header
- * - Contains weather widget and credits
- */
-#footer {
-  padding: var(--spacing-xl);
-  
-  /* Glass morphism effect */
-  background: var(--glass-darker);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  
-  /* Border and shadow */
-  border-top: 1px solid var(--border-light);
-  box-shadow: var(--shadow-elevated-reverse), var(--shadow-inset-top);
+
+- Page footer
+- - Glass effect matching header
+- - Contains weather widget and credits
+    */
+    #footer {
+    padding: var(–spacing-xl);
+
+/* Glass morphism effect */
+background: var(–glass-darker);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+
+/* Border and shadow */
+border-top: 1px solid var(–border-light);
+box-shadow: var(–shadow-elevated-reverse), var(–shadow-inset-top);
 }
 
 /**
- * Footer content wrapper
- */
-.footer-content {
+
+- Footer content wrapper
+  */
+  .footer-content {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-}
+  }
 
 /**
- * Footer credit text
- * Gradient purple text, clickable easter egg
- */
-.footer-credit {
-  font-weight: var(--font-weight-bold);
-  background: var(--gradient-primary);
+
+- Footer credit text
+- Gradient purple text, clickable easter egg
+  */
+  .footer-credit {
+  font-weight: var(–font-weight-bold);
+  background: var(–gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-size: var(--font-size-lg);
+  font-size: var(–font-size-lg);
   cursor: pointer;
-  transition: all var(--transition-normal);
-}
+  transition: all var(–transition-normal);
+  }
 
 .footer-credit:hover {
-  opacity: 0.8;
-  transform: scale(1.02);
+opacity: 0.8;
+transform: scale(1.02);
 }
 
 /* ==========================================================================
-   MODALS & OVERLAYS
-   ========================================================================== */
+MODALS & OVERLAYS
+========================================================================== */
 
 /**
- * Export modal overlay
- * - Full screen overlay with blur
- * - Flexbox centers the modal content
- * - Hidden by default, shown with .visible class
- */
-.export-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: var(--backdrop-blur-medium);
-  -webkit-backdrop-filter: var(--backdrop-blur-medium);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-  padding: var(--spacing-xl);
-}
+
+- Export modal overlay
+- - Full screen overlay with blur
+- - Flexbox centers the modal content
+- - Hidden by default, shown with .visible class
+    */
+    .export-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: var(–backdrop-blur-medium);
+    -webkit-backdrop-filter: var(–backdrop-blur-medium);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity var(–transition-normal);
+    padding: var(–spacing-xl);
+    }
 
 /**
- * Export modal visible state
- */
-.export-modal.visible {
+
+- Export modal visible state
+  */
+  .export-modal.visible {
   display: flex;
   opacity: 1;
-}
+  }
 
 /**
- * Export modal content card
- * Glass card containing export options
- */
-.export-modal-content {
-  background: var(--glass-light);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  border-radius: var(--border-radius-xl);
-  border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-strong), var(--shadow-inset-top), 
-              var(--shadow-inset-bottom);
-  padding: var(--spacing-xl);
+
+- Export modal content card
+- Glass card containing export options
+  */
+  .export-modal-content {
+  background: var(–glass-light);
+  backdrop-filter: var(–backdrop-blur-strong);
+  -webkit-backdrop-filter: var(–backdrop-blur-strong);
+  border-radius: var(–border-radius-xl);
+  border: 1px solid var(–border-medium);
+  box-shadow: var(–shadow-strong), var(–shadow-inset-top),
+  var(–shadow-inset-bottom);
+  padding: var(–spacing-xl);
   max-width: 400px;
   width: 100%;
-}
+  }
 
 /**
- * Export modal title
- */
-.export-modal-title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  background: var(--gradient-primary);
+
+- Export modal title
+  */
+  .export-modal-title {
+  font-size: var(–font-size-2xl);
+  font-weight: var(–font-weight-bold);
+  background: var(–gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 0 0 var(--spacing-lg) 0;
+  margin: 0 0 var(–spacing-lg) 0;
   text-align: center;
-}
+  }
 
 /**
- * Export options container
- */
-.export-options {
+
+- Export options container
+  */
+  .export-options {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-}
+  gap: var(–spacing-md);
+  margin-bottom: var(–spacing-lg);
+  }
 
 /**
- * Single export option
- */
-.export-option {
+
+- Single export option
+  */
+  .export-option {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
-}
+  gap: var(–spacing-xs);
+  }
 
 /**
- * Export option label
- */
-.export-option-label {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-gray);
-}
+
+- Export option label
+  */
+  .export-option-label {
+  font-size: var(–font-size-sm);
+  font-weight: var(–font-weight-semibold);
+  color: var(–color-gray);
+  }
 
 /**
- * Export buttons container
- */
-.export-buttons {
+
+- Export buttons container
+  */
+  .export-buttons {
   display: flex;
-  gap: var(--spacing-md);
-}
+  gap: var(–spacing-md);
+  }
 
 /**
- * Loading overlay
- * Full screen with spinning logo
- */
-.loading-overlay {
+
+- Loading overlay
+- Full screen with spinning logo
+  */
+  .loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: var(--backdrop-blur-medium);
-  -webkit-backdrop-filter: var(--backdrop-blur-medium);
+  backdrop-filter: var(–backdrop-blur-medium);
+  -webkit-backdrop-filter: var(–backdrop-blur-medium);
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 10000;
   opacity: 0;
-  transition: opacity var(--transition-normal);
-}
+  transition: opacity var(–transition-normal);
+  }
 
 /**
- * Loading overlay visible
- */
-.loading-overlay.visible {
+
+- Loading overlay visible
+  */
+  .loading-overlay.visible {
   display: flex;
   opacity: 1;
-}
+  }
 
 /**
- * Loading logo
- * Spinning logo with glow animation
- */
-.loading-logo {
+
+- Loading logo
+- Spinning logo with glow animation
+  */
+  .loading-logo {
   width: 120px;
   height: 120px;
   opacity: 0.8;
   /* Animation defined at bottom of file */
   animation: spin-glow 3s linear infinite;
-}
+  }
 
 /**
- * Easter egg overlay
- * Matrix effect + logo animation
- */
-.easter-egg-overlay {
+
+- Easter egg overlay
+- Matrix effect + logo animation
+  */
+  .easter-egg-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: var(--backdrop-blur-medium);
-  -webkit-backdrop-filter: var(--backdrop-blur-medium);
+  backdrop-filter: var(–backdrop-blur-medium);
+  -webkit-backdrop-filter: var(–backdrop-blur-medium);
   display: none;
   align-items: center;
   justify-content: center;
@@ -1081,31 +1157,34 @@
   opacity: 0;
   transition: opacity 0.5s;
   overflow: hidden;
-}
+  }
 
 /**
- * Easter egg overlay visible
- */
-.easter-egg-overlay.visible {
+
+- Easter egg overlay visible
+  */
+  .easter-egg-overlay.visible {
   display: flex;
   opacity: 1;
-}
+  }
 
 /**
- * Easter egg logo
- */
-.easter-egg-logo {
+
+- Easter egg logo
+  */
+  .easter-egg-logo {
   width: 150px;
   height: 150px;
   opacity: 0;
   /* Animations defined at bottom of file */
   animation: spin-in 1s ease-out forwards, egg-glow 2s ease-in-out infinite 1s;
-}
+  }
 
 /**
- * Matrix canvas (background effect)
- */
-.matrix-canvas {
+
+- Matrix canvas (background effect)
+  */
+  .matrix-canvas {
   position: absolute;
   top: 0;
   left: 0;
@@ -1113,303 +1192,326 @@
   height: 100%;
   opacity: 0;
   transition: opacity 1s;
-}
+  }
 
 .matrix-canvas.visible {
-  opacity: 1;
+opacity: 1;
 }
 
 /* ==========================================================================
-   PATTERN INFO BAR
-   ========================================================================== */
+PATTERN INFO BAR
+========================================================================== */
 
 /**
- * Pattern info bar
- * Shows pattern stats: dimensions, quality, contrast, colors
- * Hidden by default, shown with .visible class
- */
-.pattern-info {
+
+- Pattern info bar
+- Shows pattern stats: dimensions, quality, contrast, colors
+- Hidden by default, shown with .visible class
+  */
+  .pattern-info {
   display: none;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md) var(--spacing-lg);
-  margin-top: var(--spacing-md);
-}
+  gap: var(–spacing-sm);
+  padding: var(–spacing-md) var(–spacing-lg);
+  margin-top: var(–spacing-md);
+  }
 
 /**
- * Pattern info visible state
- */
-.pattern-info.visible {
+
+- Pattern info visible state
+  */
+  .pattern-info.visible {
   display: flex;
-}
+  }
 
 /**
- * Info pill (individual stat)
- * Small glass pill with label + value
- */
-.info-pill {
-  padding: var(--spacing-xs) var(--spacing-md);
+
+- Info pill (individual stat)
+- Small glass pill with label + value
+  */
+  .info-pill {
+  padding: var(–spacing-xs) var(–spacing-md);
   border-radius: 20px;
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  
-  /* Glass pill style */
-  background: var(--glass-light);
-  backdrop-filter: var(--backdrop-blur-strong);
-  -webkit-backdrop-filter: var(--backdrop-blur-strong);
-  border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-subtle), var(--shadow-inset-subtle);
-  
-  /* Animated glow (defined at bottom) */
-  animation: pill-glow 4s ease-in-out infinite;
-  white-space: nowrap;
+  font-size: var(–font-size-xs);
+  font-weight: var(–font-weight-semibold);
+
+/* Glass pill style */
+background: var(–glass-light);
+backdrop-filter: var(–backdrop-blur-strong);
+-webkit-backdrop-filter: var(–backdrop-blur-strong);
+border: 1px solid var(–border-medium);
+box-shadow: var(–shadow-subtle), var(–shadow-inset-subtle);
+
+/* Animated glow (defined at bottom) */
+animation: pill-glow 4s ease-in-out infinite;
+white-space: nowrap;
 }
 
 /**
- * Info pill label (e.g., "Pattern:")
- */
-.info-pill .info-label {
-  color: var(--color-gray);
-  margin-right: var(--spacing-xs);
-}
+
+- Info pill label (e.g., “Pattern:”)
+  */
+  .info-pill .info-label {
+  color: var(–color-gray);
+  margin-right: var(–spacing-xs);
+  }
 
 /**
- * Info pill value (e.g., "1200 × 1200px")
- * Default gradient purple
- */
-.info-pill .info-value {
-  background: var(--gradient-primary);
+
+- Info pill value (e.g., “1200 × 1200px”)
+- Default gradient purple
+  */
+  .info-pill .info-value {
+  background: var(–gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: var(--font-weight-bold);
-}
+  font-weight: var(–font-weight-bold);
+  }
 
 /**
- * Info value success state (green)
- */
-.info-pill .info-value.success {
-  background: var(--gradient-success);
+
+- Info value success state (green)
+  */
+  .info-pill .info-value.success {
+  background: var(–gradient-success);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
+  }
 
 /**
- * Info value warning state (orange)
- */
-.info-pill .info-value.warning {
-  background: var(--gradient-warning);
+
+- Info value warning state (orange)
+  */
+  .info-pill .info-value.warning {
+  background: var(–gradient-warning);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
+  }
 
 /* ==========================================================================
-   RESPONSIVE BREAKPOINTS
-   ========================================================================== */
+RESPONSIVE BREAKPOINTS
+========================================================================== */
 
 /**
- * Mobile/Tablet adjustments
- * Stacks header vertically, reduces spacing, smaller fonts
- */
-@media (max-width: 768px) {
+
+- Mobile/Tablet adjustments
+- Stacks header vertically, reduces spacing, smaller fonts
+  */
+  @media (max-width: 768px) {
   /**
-   * Header: Stack vertically
-   */
-  #header {
-    padding: var(--spacing-md);
+  - Header: Stack vertically
+    */
+    #header {
+    padding: var(–spacing-md);
     flex-direction: column;
     align-items: stretch;
-  }
-  
-  /**
-   * Logo section: Center on mobile
-   */
+    }
+
+/**
+
+- Logo section: Center on mobile
+  */
   .logo-section {
-    justify-content: center;
+  justify-content: center;
   }
-  
-  /**
-   * Header buttons: Full width on mobile
-   */
+
+/**
+
+- Header buttons: Full width on mobile
+  */
   .header-buttons {
-    gap: var(--spacing-xs);
-    padding: 0;
-    max-width: 100%;
+  gap: var(–spacing-xs);
+  padding: 0;
+  max-width: 100%;
   }
-  
-  /**
-   * Title: Smaller on mobile
-   */
+
+/**
+
+- Title: Smaller on mobile
+  */
   .title {
-    font-size: var(--font-size-xl);
+  font-size: var(–font-size-xl);
   }
-  
-  /**
-   * Canvas: Less padding on mobile
-   */
+
+/**
+
+- Canvas: Less padding on mobile
+  */
   #canvas-wrapper {
-    padding: var(--spacing-md);
+  padding: var(–spacing-md);
   }
-  
-  /**
-   * Controls: Less padding on mobile
-   */
+
+/**
+
+- Controls: Less padding on mobile
+  */
   #controls {
-    padding: var(--spacing-lg) var(--spacing-md);
+  padding: var(–spacing-lg) var(–spacing-md);
   }
-  
-  /**
-   * Pattern info: Smaller text, tighter spacing
-   */
+
+/**
+
+- Pattern info: Smaller text, tighter spacing
+  */
   .pattern-info {
-    font-size: var(--font-size-xs);
-    gap: var(--spacing-xs);
-    padding: var(--spacing-md) var(--spacing-md);
+  font-size: var(–font-size-xs);
+  gap: var(–spacing-xs);
+  padding: var(–spacing-md) var(–spacing-md);
   }
-  
-  .info-pill {
-    font-size: var(--font-size-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
-  }
-  
-  /**
-   * Export modal: Less padding
-   */
-  .export-modal-content {
-    padding: var(--spacing-lg);
-  }
-  
-  /**
-   * Export buttons: Stack vertically on mobile
-   */
-  .export-buttons {
-    flex-direction: column;
-  }
+
+.info-pill {
+font-size: var(–font-size-xs);
+padding: var(–spacing-xs) var(–spacing-sm);
 }
+
+/**
+
+- Export modal: Less padding
+  */
+  .export-modal-content {
+  padding: var(–spacing-lg);
+  }
+
+/**
+
+- Export buttons: Stack vertically on mobile
+  */
+  .export-buttons {
+  flex-direction: column;
+  }
+  }
 
 /* ==========================================================================
-   ANIMATIONS
-   ========================================================================== */
+ANIMATIONS
+========================================================================== */
 
 /**
- * Logo pulse animation
- * Subtle green glow pulsing effect
- */
-@keyframes pulse {
+
+- Logo pulse animation
+- Subtle green glow pulsing effect
+  */
+  @keyframes pulse {
   0%, 100% {
-    filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
+  filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
   }
   50% {
-    filter: drop-shadow(0 0 6px rgba(16, 185, 129, 1)) 
-            drop-shadow(0 0 12px rgba(16, 185, 129, 1));
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 1))
+  drop-shadow(0 0 12px rgba(16, 185, 129, 1));
   }
-}
+  }
 
 /**
- * Logo glow-pulse (on click)
- * Intense green flash
- */
-@keyframes glow-pulse {
+
+- Logo glow-pulse (on click)
+- Intense green flash
+  */
+  @keyframes glow-pulse {
   0% {
-    filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
+  filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
   }
   50% {
-    filter: drop-shadow(0 0 20px rgba(16, 185, 129, 1)) 
-            drop-shadow(0 0 30px rgba(16, 185, 129, 0.8));
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 1))
+  drop-shadow(0 0 30px rgba(16, 185, 129, 0.8));
   }
   100% {
-    filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
+  filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0));
   }
-}
+  }
 
 /**
- * Loading logo spin-glow
- * Rotates and alternates between green/purple glow
- */
-@keyframes spin-glow {
+
+- Loading logo spin-glow
+- Rotates and alternates between green/purple glow
+  */
+  @keyframes spin-glow {
   0% {
-    transform: rotate(0deg);
-    filter: drop-shadow(0 0 20px rgba(16, 185, 129, 1)) 
-            drop-shadow(0 0 40px rgba(16, 185, 129, 0.8));
+  transform: rotate(0deg);
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 1))
+  drop-shadow(0 0 40px rgba(16, 185, 129, 0.8));
   }
   50% {
-    transform: rotate(360deg);
-    filter: drop-shadow(0 0 20px rgba(16, 185, 129, 1)) 
-            drop-shadow(0 0 40px rgba(16, 185, 129, 0.8));
+  transform: rotate(360deg);
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 1))
+  drop-shadow(0 0 40px rgba(16, 185, 129, 0.8));
   }
   51% {
-    filter: drop-shadow(0 0 20px rgba(118, 75, 162, 1)) 
-            drop-shadow(0 0 40px rgba(118, 75, 162, 0.8));
+  filter: drop-shadow(0 0 20px rgba(118, 75, 162, 1))
+  drop-shadow(0 0 40px rgba(118, 75, 162, 0.8));
   }
   100% {
-    transform: rotate(720deg);
-    filter: drop-shadow(0 0 20px rgba(118, 75, 162, 1)) 
-            drop-shadow(0 0 40px rgba(118, 75, 162, 0.8));
+  transform: rotate(720deg);
+  filter: drop-shadow(0 0 20px rgba(118, 75, 162, 1))
+  drop-shadow(0 0 40px rgba(118, 75, 162, 0.8));
   }
-}
+  }
 
 /**
- * Easter egg: spin-in animation
- * Logo spins in from nothing
- */
-@keyframes spin-in {
+
+- Easter egg: spin-in animation
+- Logo spins in from nothing
+  */
+  @keyframes spin-in {
   0% {
-    transform: scale(0) rotate(0deg);
-    opacity: 0;
+  transform: scale(0) rotate(0deg);
+  opacity: 0;
   }
   100% {
-    transform: scale(1) rotate(720deg);
-    opacity: 1;
+  transform: scale(1) rotate(720deg);
+  opacity: 1;
   }
-}
+  }
 
 /**
- * Easter egg: spin-out animation
- * Logo spins out to nothing
- */
-@keyframes spin-out {
+
+- Easter egg: spin-out animation
+- Logo spins out to nothing
+  */
+  @keyframes spin-out {
   0% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
   }
   100% {
-    transform: scale(0) rotate(-720deg);
-    opacity: 0;
+  transform: scale(0) rotate(-720deg);
+  opacity: 0;
   }
-}
+  }
 
 /**
- * Easter egg: egg-glow animation
- * Alternates between purple and green glow
- */
-@keyframes egg-glow {
+
+- Easter egg: egg-glow animation
+- Alternates between purple and green glow
+  */
+  @keyframes egg-glow {
   0%, 100% {
-    filter: drop-shadow(0 0 15px rgba(118, 75, 162, 0.8));
+  filter: drop-shadow(0 0 15px rgba(118, 75, 162, 0.8));
   }
   50% {
-    filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.8));
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.8));
   }
-}
+  }
 
 /**
- * Info pill glow animation
- * Border and shadow alternates between purple and green
- */
-@keyframes pill-glow {
+
+- Info pill glow animation
+- Border and shadow alternates between purple and green
+  */
+  @keyframes pill-glow {
   0%, 100% {
-    box-shadow: var(--shadow-subtle), 
-                0 0 10px rgba(118, 75, 162, 0.4), 
-                var(--shadow-inset-subtle);
-    border-color: rgba(118, 75, 162, 0.3);
+  box-shadow: var(–shadow-subtle),
+  0 0 10px rgba(118, 75, 162, 0.4),
+  var(–shadow-inset-subtle);
+  border-color: rgba(118, 75, 162, 0.3);
   }
   50% {
-    box-shadow: var(--shadow-subtle), 
-                0 0 10px rgba(16, 185, 129, 0.4), 
-                var(--shadow-inset-subtle);
-    border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: var(–shadow-subtle),
+  0 0 10px rgba(16, 185, 129, 0.4),
+  var(–shadow-inset-subtle);
+  border-color: rgba(16, 185, 129, 0.3);
   }
-}
+  }
