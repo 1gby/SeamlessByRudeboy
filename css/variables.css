@@ -1,243 +1,263 @@
 /* ============================================================================
-   VARIABLES.CSS - Design System Tokens
-   ============================================================================
-   This file contains all design tokens (colors, spacing, typography, etc.)
-   used throughout the Rudeboy Pattern Checker application.
-   
-   By centralizing these values, we can:
-   - Maintain consistency across the entire app
-   - Make global design changes by editing one file
-   - Create a clear design language
-   ============================================================================ */
+VARIABLES.CSS - CSS Custom Properties (Design Tokens)
+
+This file defines all design variables used throughout the application.
+Using CSS custom properties allows for easy theming and consistency.
+
+Categories:
+
+- Colors (brand, UI, gradients)
+- Spacing (margins, paddings)
+- Typography (fonts, sizes, weights)
+- Borders & Radius
+- Shadows & Effects
+- Transitions & Timing
+- Glass Morphism Effects
+  ============================================================================ */
 
 :root {
-  /* ==========================================================================
-     COLOR PALETTE
-     ========================================================================== */
-  
-  /* Primary Brand Colors - The signature Rudeboy purple/green gradient */
-  --color-primary-purple: #667eea;      /* Light purple - main brand color */
-  --color-primary-purple-dark: #764ba2; /* Dark purple - gradient end */
-  --color-primary-green: #10b981;       /* Emerald green - accent color */
-  --color-primary-green-dark: #059669;  /* Dark green - hover states */
-  
-  /* Status Colors - For feedback and states */
-  --color-success: #10b981;   /* Green - successful actions */
-  --color-warning: #f59e0b;   /* Orange - warnings */
-  --color-error: #ef4444;     /* Red - errors */
-  --color-info: #3b82f6;      /* Blue - information */
-  
-  /* Neutral Colors - Grays and backgrounds */
-  --color-black: #000000;
-  --color-gray-darkest: #0a0a0a;
-  --color-gray-darker: #1a1a1a;
-  --color-gray-dark: #1a1a2e;
-  --color-gray-medium: #2a2a2a;
-  --color-gray: #666666;
-  --color-gray-light: #888888;
-  --color-gray-lighter: #999999;
-  --color-gray-lightest: #cccccc;
-  --color-white: #ffffff;
-  --color-off-white: #eeeeee;
-  
-  /* Transparent Whites - For glass morphism effects */
-  --color-white-5: rgba(255, 255, 255, 0.05);
-  --color-white-10: rgba(255, 255, 255, 0.1);
-  --color-white-15: rgba(255, 255, 255, 0.15);
-  --color-white-20: rgba(255, 255, 255, 0.2);
-  --color-white-25: rgba(255, 255, 255, 0.25);
-  --color-white-30: rgba(255, 255, 255, 0.3);
-  
-  /* Transparent Blacks - For overlays and shadows */
-  --color-black-30: rgba(0, 0, 0, 0.3);
-  --color-black-40: rgba(0, 0, 0, 0.4);
-  --color-black-50: rgba(0, 0, 0, 0.5);
-  --color-black-60: rgba(0, 0, 0, 0.6);
-  --color-black-85: rgba(0, 0, 0, 0.85);
-  --color-black-95: rgba(0, 0, 0, 0.95);
-  
-  /* ==========================================================================
-     GRADIENTS
-     ========================================================================== */
-  
-  /* Brand gradient - Purple to dark purple */
-  --gradient-brand: linear-gradient(135deg, var(--color-primary-purple) 0%, var(--color-primary-purple-dark) 100%);
-  
-  /* Success gradient - Green shades */
-  --gradient-success: linear-gradient(135deg, var(--color-success) 0%, var(--color-primary-green-dark) 100%);
-  
-  /* Warning gradient - Orange shades */
-  --gradient-warning: linear-gradient(135deg, var(--color-warning) 0%, #d97706 100%);
-  
-  /* Background gradient - Dark diagonal gradient for main background */
-  --gradient-background: linear-gradient(135deg, var(--color-gray-darkest) 0%, var(--color-gray-dark) 100%);
-  
-  /* Checker pattern - For transparent backgrounds */
-  --pattern-checker: repeating-conic-gradient(#cccccc 0% 25%, #999999 0% 50%, #cccccc 50% 75%, #999999 75% 100%);
-  --pattern-checker-dark: repeating-conic-gradient(var(--color-gray-medium) 0% 25%, var(--color-gray-darker) 0% 50%, var(--color-gray-medium) 50% 75%, var(--color-gray-darker) 75% 100%);
-  
-  /* ==========================================================================
-     TYPOGRAPHY
-     ========================================================================== */
-  
-  /* Font Families */
-  --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-monospace: 'Courier New', Courier, monospace;
-  
-  /* Font Sizes - Using a modular scale */
-  --font-size-xs: 0.75rem;    /* 12px - Very small labels */
-  --font-size-sm: 0.85rem;    /* 13.6px - Small text */
-  --font-size-base: 0.9rem;   /* 14.4px - Base text size */
-  --font-size-md: 0.95rem;    /* 15.2px - Medium text */
-  --font-size-lg: 1.1rem;     /* 17.6px - Large text */
-  --font-size-xl: 1.25rem;    /* 20px - Extra large */
-  --font-size-2xl: 1.5rem;    /* 24px - Headings */
-  --font-size-3xl: 1.8rem;    /* 28.8px - Large headings */
-  --font-size-4xl: 4rem;      /* 64px - Hero text */
-  
-  /* Font Weights */
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  
-  /* Line Heights */
-  --line-height-tight: 1;
-  --line-height-normal: 1.6;
-  
-  /* ==========================================================================
-     SPACING
-     ========================================================================== */
-  
-  /* Spacing scale - Used for margins, padding, gaps */
-  --space-xs: 0.25rem;   /* 4px */
-  --space-sm: 0.5rem;    /* 8px */
-  --space-md: 0.75rem;   /* 12px */
-  --space-base: 1rem;    /* 16px */
-  --space-lg: 1.5rem;    /* 24px */
-  --space-xl: 2rem;      /* 32px */
-  --space-2xl: 3rem;     /* 48px */
-  --space-3xl: 4rem;     /* 64px */
-  
-  /* ==========================================================================
-     BORDERS & RADIUS
-     ========================================================================== */
-  
-  /* Border Radius - Corner rounding */
-  --radius-sm: 6px;      /* Small radius - tight corners */
-  --radius-md: 8px;      /* Medium radius - buttons */
-  --radius-base: 12px;   /* Base radius - cards */
-  --radius-lg: 16px;     /* Large radius - containers */
-  --radius-xl: 20px;     /* Extra large - canvas */
-  --radius-full: 9999px; /* Pill shape - tags */
-  
-  /* Border Widths */
-  --border-thin: 1px;
-  --border-medium: 2px;
-  --border-thick: 3px;
-  
-  /* ==========================================================================
-     SHADOWS
-     ========================================================================== */
-  
-  /* Box Shadows - For depth and elevation */
-  --shadow-sm: 0 2px 8px var(--color-black-30);
-  --shadow-md: 0 4px 12px var(--color-black-30);
-  --shadow-lg: 0 8px 32px var(--color-black-40);
-  --shadow-xl: 0 20px 60px var(--color-black-50);
-  --shadow-2xl: 0 25px 70px var(--color-black-60);
-  
-  /* Glow Shadows - For interactive elements */
-  --glow-purple: 0 0 20px rgba(118, 75, 162, 0.6);
-  --glow-purple-strong: 0 0 30px rgba(118, 75, 162, 1);
-  --glow-green: 0 0 20px rgba(16, 185, 129, 0.6);
-  --glow-green-strong: 0 0 30px rgba(16, 185, 129, 1);
-  --glow-red: 0 0 20px rgba(239, 68, 68, 0.6);
-  
-  /* Inset Shadows - For pressed/sunken effects */
-  --inset-light: inset 0 2px 0 var(--color-white-30);
-  --inset-dark: inset 0 -2px 0 var(--color-black-20);
-  
-  /* ==========================================================================
-     GLASSMORPHISM EFFECTS
-     ========================================================================== */
-  
-  /* Backdrop filters for glass effect */
-  --glass-blur: blur(40px) saturate(180%) brightness(1.1);
-  --glass-blur-light: blur(20px) saturate(180%);
-  --glass-blur-strong: blur(30px) saturate(180%);
-  
-  /* ==========================================================================
-     TRANSITIONS & ANIMATIONS
-     ========================================================================== */
-  
-  /* Transition Durations */
-  --transition-fast: 0.15s;
-  --transition-base: 0.3s;
-  --transition-slow: 0.5s;
-  --transition-slower: 1s;
-  
-  /* Easing Functions */
-  --ease-in-out: ease-in-out;
-  --ease-out: ease-out;
-  --ease-in: ease-in;
-  
-  /* ==========================================================================
-     Z-INDEX LAYERS
-     ========================================================================== */
-  
-  /* Z-index scale - Ensures proper stacking order */
-  --z-base: 1;
-  --z-dropdown: 100;
-  --z-tooltip: 500;
-  --z-modal: 9999;
-  --z-easter-egg: 20000;
-  
-  /* ==========================================================================
-     COMPONENT-SPECIFIC VALUES
-     ========================================================================== */
-  
-  /* Logo */
-  --logo-height: 42px;
-  
-  /* Canvas */
-  --canvas-max-width: 1200px;
-  
-  /* Buttons */
-  --button-min-height: 52px;
-  
-  /* Slider thumb */
-  --slider-thumb-width: 60px;
-  --slider-thumb-height: 28px;
-  
-  /* Pattern info pills */
-  --pill-padding-vertical: 0.5rem;
-  --pill-padding-horizontal: 1rem;
-  
-  /* Weather widget */
-  --weather-icon-size: 1.8rem;
-  
-  /* ==========================================================================
-     BREAKPOINTS (For reference - used in media queries)
-     ========================================================================== */
-  
-  /* 
-  --breakpoint-mobile: 768px;
-  --breakpoint-tablet: 1024px;
-  --breakpoint-desktop: 1280px;
-  
-  Note: CSS variables can't be used in media queries directly,
-  but these values are documented here for consistency.
+/* ==========================================================================
+COLOR SYSTEM
+========================================================================== */
+
+/**
+
+- Brand Colors - Primary palette
   */
-}
+  –color-primary-purple: #667eea;
+  –color-primary-purple-dark: #764ba2;
+  –color-primary-purple-alpha: rgba(102, 126, 234, 0.4);
+  –color-primary-green: #10b981;
+  –color-primary-green-dark: #059669;
 
-/* ============================================================================
-   DARK MODE PREFERENCE
-   ============================================================================
-   The app is designed for dark mode, but we set the color scheme
-   to ensure browser chrome (scrollbars, form controls) match.
-   ============================================================================ */
+/**
 
-:root {
+- Neutral Colors - Grayscale
+  */
+  –color-black: #000000;
+  –color-white: #ffffff;
+  –color-off-white: #eeeeee;
+  –color-gray-darker: #0a0a0a;
+  –color-gray-dark: #1a1a1a;
+  –color-gray: #888888;
+  –color-gray-medium: #666666;
+  –color-gray-light: #aaaaaa;
+  –color-gray-lighter: #cccccc;
+
+/**
+
+- Semantic Colors - Status & feedback
+  */
+  –color-success: #10b981;
+  –color-warning: #f59e0b;
+  –color-error: #ef4444;
+  –color-info: #667eea;
+
+/**
+
+- Gradients
+  */
+  –gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  –gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  –gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  –gradient-background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+
+/**
+
+- Glass Morphism - Background colors with transparency
+  */
+  –glass-dark: rgba(0, 0, 0, 0.6);
+  –glass-darker: rgba(0, 0, 0, 0.5);
+  –glass-light: rgba(255, 255, 255, 0.1);
+  –glass-light-hover: rgba(255, 255, 255, 0.15);
+
+/* ==========================================================================
+SPACING SYSTEM
+========================================================================== */
+
+/**
+
+- Spacing scale (based on 4px base unit)
+- Use these for margins, paddings, gaps
+  */
+  –spacing-xs: 0.5rem;    /* 8px */
+  –spacing-sm: 0.75rem;   /* 12px */
+  –spacing-md: 1rem;      /* 16px */
+  –spacing-lg: 1.5rem;    /* 24px */
+  –spacing-xl: 2rem;      /* 32px */
+  –spacing-2xl: 3rem;     /* 48px */
+  –spacing-3xl: 4rem;     /* 64px */
+
+/* ==========================================================================
+TYPOGRAPHY
+========================================================================== */
+
+/**
+
+- Font Families
+  */
+  –font-primary: -apple-system, BlinkMacSystemFont, ‘Segoe UI’, Roboto,
+  ‘Helvetica Neue’, Arial, sans-serif;
+  –font-monospace: ‘Courier New’, monospace;
+
+/**
+
+- Font Sizes
+  */
+  –font-size-xs: 0.75rem;    /* 12px */
+  –font-size-sm: 0.875rem;   /* 14px */
+  –font-size-base: 0.9375rem; /* 15px */
+  –font-size-md: 1rem;       /* 16px */
+  –font-size-lg: 1.125rem;   /* 18px */
+  –font-size-xl: 1.25rem;    /* 20px */
+  –font-size-2xl: 1.5rem;    /* 24px */
+  –font-size-3xl: 2rem;      /* 32px */
+
+/**
+
+- Font Weights
+  */
+  –font-weight-light: 300;
+  –font-weight-normal: 400;
+  –font-weight-medium: 500;
+  –font-weight-semibold: 600;
+  –font-weight-bold: 700;
+
+/**
+
+- Line Heights
+  */
+  –line-height-tight: 1.2;
+  –line-height-normal: 1.5;
+  –line-height-relaxed: 1.6;
+  –line-height-loose: 1.8;
+
+/* ==========================================================================
+BORDERS & RADIUS
+========================================================================== */
+
+/**
+
+- Border Colors
+  */
+  –border-light: rgba(255, 255, 255, 0.1);
+  –border-medium: rgba(255, 255, 255, 0.2);
+  –border-bright: rgba(255, 255, 255, 0.25);
+  –border-subtle: rgba(255, 255, 255, 0.06);
+
+/**
+
+- Border Radius
+  */
+  –border-radius-xs: 4px;
+  –border-radius-sm: 8px;
+  –border-radius-md: 12px;
+  –border-radius-lg: 16px;
+  –border-radius-xl: 20px;
+  –border-radius-2xl: 24px;
+  –border-radius-full: 9999px;
+
+/* ==========================================================================
+SHADOWS & EFFECTS
+========================================================================== */
+
+/**
+
+- Box Shadows - Depth and elevation
+  */
+  –shadow-subtle: 0 2px 12px rgba(0, 0, 0, 0.3);
+  –shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.3);
+  –shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.4);
+  –shadow-elevated: 0 20px 60px rgba(0, 0, 0, 0.5);
+  –shadow-elevated-hover: 0 25px 70px rgba(0, 0, 0, 0.6);
+  –shadow-elevated-reverse: 0 -8px 32px rgba(0, 0, 0, 0.6);
+
+/**
+
+- Inset Shadows - Glass morphism depth
+  */
+  –shadow-inset-subtle: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  –shadow-inset-top: inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  –shadow-inset-top-hover: inset 0 2px 0 rgba(255, 255, 255, 0.35);
+  –shadow-inset-bottom: inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  –shadow-inset-bottom-strong: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+
+/**
+
+- Glow Effects - Color-coded glows for different elements
+  */
+  –glow-purple-medium: 0 0 20px rgba(118, 75, 162, 0.6);
+  –glow-purple-strong: 0 0 25px rgba(118, 75, 162, 0.8);
+  –glow-purple-intense: 0 0 30px rgba(118, 75, 162, 1);
+
+–glow-green-medium: 0 0 20px rgba(16, 185, 129, 0.6);
+–glow-green-strong: 0 0 25px rgba(16, 185, 129, 0.8);
+–glow-green-intense: 0 0 30px rgba(16, 185, 129, 1);
+
+–glow-red-medium: 0 0 20px rgba(239, 68, 68, 0.6);
+–glow-red-strong: 0 0 25px rgba(239, 68, 68, 0.8);
+–glow-red-intense: 0 0 30px rgba(239, 68, 68, 1);
+
+/* ==========================================================================
+BACKDROP FILTERS
+========================================================================== */
+
+/**
+
+- Blur Effects - Glass morphism
+  */
+  –backdrop-blur-subtle: blur(20px);
+  –backdrop-blur-medium: blur(30px);
+  –backdrop-blur-strong: blur(40px) saturate(180%);
+
+/* ==========================================================================
+TRANSITIONS & TIMING
+========================================================================== */
+
+/**
+
+- Transition Durations
+  */
+  –transition-fast: 0.15s;
+  –transition-normal: 0.3s;
+  –transition-slow: 0.5s;
+
+/**
+
+- Easing Functions
+  */
+  –ease-in: ease-in;
+  –ease-out: ease-out;
+  –ease-in-out: ease-in-out;
+  –ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+/* ==========================================================================
+Z-INDEX LAYERS
+========================================================================== */
+
+/**
+
+- Stacking order
+  */
+  –z-base: 1;
+  –z-dropdown: 100;
+  –z-sticky: 200;
+  –z-fixed: 300;
+  –z-modal-backdrop: 9999;
+  –z-modal: 10000;
+  –z-easter-egg: 20000;
+  –z-tooltip: 30000;
+  }
+
+/* ==========================================================================
+DARK MODE SUPPORT
+========================================================================== */
+
+/**
+
+- Set color scheme preference to dark
+- This tells browsers to use dark scrollbars, form controls, etc.
+  */
+  :root {
   color-scheme: dark;
-}
+  }
