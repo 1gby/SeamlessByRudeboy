@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Application Test</title>
+
+  <!-- Import the same CSS as index.html -->
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <style>
+    /* Test styles to see what's working */
+    .test-box {
+      margin: 20px;
+      padding: 20px;
+      border: 2px solid white;
+    }
+    
+    .variable-test {
+      color: var(--color-primary-purple);
+      background: var(--glass-light);
+      padding: 10px;
+      margin: 10px 0;
+    }
+  </style>
+
+</head>
+<body>
+  <h1>CSS Application Test</h1>
+
+  <div class="test-box">
+    <h2>Test 1: Are CSS variables working?</h2>
+    <div class="variable-test">
+      This should have purple text and glass background if variables.css is working
+    </div>
+    <div id="var-check"></div>
+  </div>
+
+  <div class="test-box">
+    <h2>Test 2: Is reset.css working?</h2>
+    <p id="reset-check">Checking box-sizing...</p>
+  </div>
+
+  <div class="test-box">
+    <h2>Test 3: Button styling test</h2>
+    <button class="upload-btn">Upload Button (should have purple glow)</button>
+    <button class="sample-btn">Sample Button (should have green glow)</button>
+  </div>
+
+  <div class="test-box">
+    <h2>Test 4: Glass morphism test</h2>
+    <div style="background: var(--glass-light); backdrop-filter: var(--backdrop-blur-strong); padding: 20px; border-radius: 10px;">
+      This should look like glass if variables are working
+    </div>
+  </div>
+
+  <script>
+    // Check if CSS variables are accessible
+    const varCheck = document.getElementById('var-check');
+    const root = document.documentElement;
+    const purpleColor = getComputedStyle(root).getPropertyValue('--color-primary-purple');
+    
+    if (purpleColor) {
+      varCheck.innerHTML = `✅ CSS Variables ARE working!<br>--color-primary-purple = ${purpleColor}`;
+      varCheck.style.color = '#0f0';
+    } else {
+      varCheck.innerHTML = '❌ CSS Variables NOT working!';
+      varCheck.style.color = '#f00';
+    }
+    
+    // Check box-sizing
+    const resetCheck = document.getElementById('reset-check');
+    const boxSizing = getComputedStyle(document.body).boxSizing;
+    
+    if (boxSizing === 'border-box') {
+      resetCheck.innerHTML = `✅ reset.css IS working! (box-sizing: ${boxSizing})`;
+      resetCheck.style.color = '#0f0';
+    } else {
+      resetCheck.innerHTML = `❌ reset.css NOT working! (box-sizing: ${boxSizing})`;
+      resetCheck.style.color = '#f00';
+    }
+    
+    // List all loaded stylesheets
+    const sheets = document.styleSheets;
+    const sheetInfo = document.createElement('div');
+    sheetInfo.className = 'test-box';
+    sheetInfo.innerHTML = '<h2>Test 5: Loaded Stylesheets</h2>';
+    
+    for (let i = 0; i < sheets.length; i++) {
+      const sheet = sheets[i];
+      const div = document.createElement('div');
+      div.style.padding = '5px';
+      div.style.margin = '5px 0';
+      div.style.border = '1px solid #333';
+      
+      if (sheet.href) {
+        div.innerHTML = `✅ ${sheet.href}`;
+        div.style.color = '#0f0';
+      } else {
+        div.innerHTML = `📝 Inline <style> tag`;
+        div.style.color = '#ff0';
+      }
+      
+      sheetInfo.appendChild(div);
+    }
+    
+    document.body.appendChild(sheetInfo);
+  </script>
+
+</body>
+</html>
