@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Validator</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: monospace;
+      padding: 20px;
+      font-size: 14px;
+    }
+    .pass { color: #0f0; }
+    .fail { color: #f00; }
+    .warning { color: #ff0; }
+    .test { margin: 10px 0; padding: 10px; border: 1px solid #333; }
+    pre { background: #111; padding: 10px; overflow-x: auto; }
+    button { 
+      background: #667eea; 
+      color: white; 
+      border: none; 
+      padding: 10px 20px; 
+      margin: 10px 0;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 File Content Validator</h1>
+  <p>This will check if your files are corrupted (starting with # instead of /*)</p>
+
+<button onclick="runValidation()">Run Validation</button>
+
+  <div id="results"></div>
+
+  <script>
+    const results = document.getElementById('results');
+    
+    const cssFiles = [
+      'css/reset.css',
+      'css/variables.css',
+      'css/layout.css',
+      'css/components.css',
+      'css/animations.css'
+    ];
+    
+    async function validateFile(url) {
+      try {
+        const response = await fetch(url);
+        const text = await response.text();
+        
+        // Check first characters
+        const first10 = text.substring(0, 10);
+        const first100 = text.substring(0, 100);
+        
+        let status = 'UNKNOWN';
+        let color = 'warning';
+        let message = '';
+        
+        // Check for corruption markers
+        if (first10.startsWith('#')) {
+          status = 'CORRUPTED';
+          color = 'fail';
+          message = '❌ FILE STARTS WITH # - CORRUPTED!';
+        } else if (first10.startsWith('/*')) {
+          status = 'VALID';
+          color = 'pass';
+          message = '✅ File looks good';
+        } else if (first10.trim() === '') {
+          status = 'EMPTY';
+          color = 'fail';
+          message = '❌ File is empty or has leading whitespace';
+        } else {
+          status = 'UNKNOWN';
+          color = 'warning';
+          message = '⚠️ Unexpected start characters';
+        }
+        
+        return {
+          url,
+          status,
+          color,
+          message,
+          preview: first100,
+          size: text.length
+        };
+      } catch (error) {
+        return {
+          url,
+          status: 'ERROR',
+          color: 'fail',
+          message: `❌ ${error.message}`,
+          preview: '',
+          size: 0
+        };
+      }
+    }
+    
+    async function runValidation() {
+      results.innerHTML = '<h2>Validating CSS Files...</h2>';
+      
+      for (const file of cssFiles) {
+        const result = await validateFile(file);
+        
+        const div = document.createElement('div');
+        div.className = `test ${result.color}`;
+        div.innerHTML = `
+          <strong>${result.url}</strong><br>
+          ${result.message}<br>
+          <small>Size: ${result.size} bytes</small><br>
+          <details>
+            <summary>Show first 100 characters</summary>
+            <pre>${result.preview.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+
+
+      </details>
+    `;
+    results.appendChild(div);
+  }
+  
+  // Summary
+  const summary = document.createElement('div');
+  summary.className = 'test';
+  summary.innerHTML = `
+    <h2>📋 Summary</h2>
+    <p>If any files show "CORRUPTED" (starting with #), you need to re-upload them.</p>
+    <p><strong>How to fix:</strong></p>
+    <ol>
+      <li>Download the clean file from Claude's outputs</li>
+      <li>Delete the corrupted file on GitHub</li>
+      <li>Upload the clean file (don't copy-paste!)</li>
+    </ol>
+  `;
+  results.appendChild(summary);
+}
+
+  </script>
+</body>
+</html>
