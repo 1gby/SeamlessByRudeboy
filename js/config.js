@@ -1,471 +1,334 @@
 /* ============================================================================
-   CONFIG.JS - Application Configuration & Constants
-   ============================================================================
-   This file contains all configuration values, constants, and settings
-   used throughout the Rudeboy Pattern Checker application.
-   
-   By centralizing configuration here, we can:
-   - Easily adjust app behavior without hunting through code
-   - Maintain consistent settings across all modules
-   - Document what each setting does and why it exists
-   ============================================================================ */
+CONFIG.JS - Application Configuration
 
-/* ==========================================================================
-   CANVAS SETTINGS
-   ========================================================================== */
+This file contains all configuration constants and settings.
+Centralized configuration makes it easy to adjust app behavior.
+
+Categories:
+
+- Canvas settings
+- File upload settings
+- Export settings
+- Animation settings
+- API endpoints
+  ============================================================================ */
 
 /**
- * Canvas quality presets (in pixels)
- * These determine the resolution of the pattern preview canvas
- */
-export const CANVAS_QUALITY = {
-  STANDARD: 1200,  // Good for quick previews and most use cases
-  HIGH: 1600,      // Better quality, slightly slower rendering
-  ULTRA: 2400,     // High quality for detailed work
-  MAX: 3200        // Maximum quality for final exports
+
+- Canvas Configuration
+  */
+  const CANVAS_CONFIG = {
+  // Default canvas size in pixels
+  DEFAULT_SIZE: 1200,
+
+// Available canvas quality options
+QUALITY_OPTIONS: {
+STANDARD: 1200,
+HIGH: 1600,
+ULTRA: 2400,
+MAX: 3200
+},
+
+// Zoom limits
+MIN_ZOOM: 0.01,
+MAX_ZOOM: 8.0,
+
+// Scale limits
+MIN_SCALE: 0.05,
+MAX_SCALE: 5.0,
+
+// Default repeat type
+DEFAULT_REPEAT: ‘full’,
+
+// Repeat type options
+REPEAT_TYPES: [‘full’, ‘half-drop’, ‘brick’]
 };
 
 /**
- * Default canvas quality setting
- * Used when the app first loads
- */
-export const DEFAULT_CANVAS_QUALITY = CANVAS_QUALITY.STANDARD;
 
-/**
- * Zoom limits for canvas interaction
- * Prevents users from zooming too far in or out
- */
-export const ZOOM = {
-  MIN: 0.01,   // 1% - Zoomed way out
-  MAX: 8,      // 800% - Zoomed way in
-  DEFAULT: 1   // 100% - Normal view
+- File Upload Configuration
+  */
+  const UPLOAD_CONFIG = {
+  // Accepted file types
+  ACCEPTED_TYPES: [‘image/png’, ‘image/jpeg’, ‘image/jpg’, ‘image/webp’],
+
+// Maximum file size (10MB)
+MAX_FILE_SIZE: 10 * 1024 * 1024,
+
+// File extensions
+ACCEPTED_EXTENSIONS: [’.png’, ‘.jpg’, ‘.jpeg’, ‘.webp’]
 };
 
 /**
- * Scale limits for pattern size adjustment
- * Controls how much users can shrink or enlarge patterns
- */
-export const SCALE = {
-  MIN: 0.05,   // 5% - Very small pattern tiles
-  MAX: 5,      // 500% - Very large pattern tiles
-  DEFAULT: 1   // 100% - Original size
-};
 
-/* ==========================================================================
-   PATTERN SETTINGS
-   ========================================================================== */
-
-/**
- * Pattern repeat types
- * Different tiling methods for seamless patterns
- */
-export const REPEAT_TYPES = {
-  FULL: 'full',           // Standard grid tiling
-  HALF_DROP: 'half-drop', // Offset every other column by half height
-  BRICK: 'brick'          // Offset every other row by half width
-};
-
-/**
- * Default repeat type when app loads
- */
-export const DEFAULT_REPEAT_TYPE = REPEAT_TYPES.FULL;
-
-/**
- * Background color options for canvas
- * Helps visualize patterns with transparency
- */
-export const BACKGROUND_COLORS = {
-  CHECKER: 'checker',     // Transparent checkerboard pattern
-  BLACK: '#000000',       // Solid black
-  WHITE: '#ffffff',       // Solid white
-  GRAY: '#1a1a1a'        // Dark gray
-};
-
-/**
- * Default background when app loads
- */
-export const DEFAULT_BACKGROUND = BACKGROUND_COLORS.CHECKER;
-
-/**
- * Grid overlay sizes (in inches)
- * Helps users visualize scale at different print sizes
- */
-export const GRID_SIZES = {
-  OFF: 0,
-  ONE_INCH: 1,
-  TWO_INCH: 2,
-  SIX_INCH: 6,
-  TWELVE_INCH: 12
-};
-
-/* ==========================================================================
-   EXPORT SETTINGS
-   ========================================================================== */
-
-/**
- * Export resolution presets (in pixels)
- * Common sizes for different use cases
- */
-export const EXPORT_RESOLUTIONS = {
-  CURRENT: 'current',  // Whatever canvas quality is currently set
-  HIGH: 1600,          // Good for web and most print
-  ULTRA: 2400,         // High quality print
-  MAX: 3200,           // Maximum quality for large prints
-  PRINT: 4800,         // Professional print quality
-  CUSTOM: 'custom'     // User-defined size
-};
-
-/**
- * Export format options
- */
-export const EXPORT_FORMATS = {
-  PNG: 'png',  // Lossless, larger file size
-  JPG: 'jpg'   // Lossy compression, smaller file size
-};
-
-/**
- * JPEG quality setting (0.0 to 1.0)
- * Higher = better quality but larger file
- */
-export const JPEG_QUALITY = 0.95;
-
-/* ==========================================================================
-   LOADING & ANIMATION TIMING
-   ========================================================================== */
-
-/**
- * Minimum time (milliseconds) to show loading animation
- * Prevents jarring flash if loading completes too quickly
- */
-export const MIN_LOAD_TIME = 1500;  // 1.5 seconds
-
-/**
- * Minimum time for reload animation
- * Used when clicking the logo to reload the app
- */
-export const RELOAD_MIN_TIME = 1500;  // 1.5 seconds
-
-/* ==========================================================================
-   DIMENSION CALCULATOR SETTINGS
-   ========================================================================== */
-
-/**
- * Calculator default values
- * Initial state when app loads
- */
-export const CALCULATOR_DEFAULTS = {
-  SIZE: 9,           // 9 inches square
-  DPI: 150,          // Standard web/print DPI
-  UNIT: 'inches',    // Default measurement unit
-  FIELD: 'size'      // Which field is active (size or dpi)
-};
-
-/**
- * Calculator limits
- * Prevents users from entering impossible values
- */
-export const CALCULATOR_LIMITS = {
-  SIZE_MIN: 1,        // Minimum size in inches/cm
-  SIZE_MAX_INCHES: 200,  // Maximum size in inches
-  SIZE_MAX_CM: 500,      // Maximum size in centimeters
-  DPI_MIN: 72,        // Minimum DPI
-  DPI_MAX: 600        // Maximum DPI
-};
-
-/**
- * Common DPI values for reference
- */
-export const DPI_PRESETS = {
-  WEB: 72,           // Standard web resolution
-  PRINT_LOW: 150,    // Low quality print
-  PRINT_STANDARD: 300,  // Standard print quality
-  PRINT_HIGH: 600    // High quality print
-};
-
-/* ==========================================================================
-   MOCKUP SETTINGS
-   ========================================================================== */
-
-/**
- * Mockup types available in the app
- */
-export const MOCKUP_TYPES = {
-  TILE: 'tile',              // Infinite tiled pattern
-  TILE_GRID: 'tile-grid',    // Infinite tile with grid overlay
-  PHONE: 'phone',            // Phone case mockup
-  IPAD: 'ipad',              // iPad case mockup
-  TOTE: 'tote',              // Tote bag mockup
-  BANDANA: 'bandana',        // Bandana mockup
-  BEDSPREAD: 'bedspread',    // Bedspread mockup
-  MUG: 'mug',                // Mug mockup
-  SWEATSHIRT: 'sweatshirt',  // Sweatshirt mockup
-  FABRIC: 'fabric',          // Fabric swatch mockup
-  BOTTLE: 'bottle'           // Water bottle mockup
-};
-
-/**
- * Mockup zoom limits
- * How much users can zoom mockup previews
- */
-export const MOCKUP_ZOOM = {
-  MIN: 100,    // 100% - Normal size
-  MAX: 150,    // 150% - 1.5x zoom
-  DEFAULT: 100
-};
-
-/**
- * Mockup rotation limits
- */
-export const MOCKUP_ROTATION = {
-  MIN: 0,      // 0 degrees
-  MAX: 360,    // Full rotation
-  DEFAULT: 0
-};
-
-/**
- * Green screen color detection for mockups
- * Used to replace green areas with pattern
- */
-export const GREEN_SCREEN = {
-  COLOR: '#00FF00',           // Pure green (#00FF00)
-  TOLERANCE_R: 10,            // Red channel tolerance (0-10)
-  TOLERANCE_G_MIN: 200,       // Green channel minimum (200-255)
-  TOLERANCE_B: 10             // Blue channel tolerance (0-10)
-};
-
-/* ==========================================================================
-   SAMPLE PATTERNS
-   ========================================================================== */
-
-/**
- * Pre-loaded sample patterns for users to try
- * GitHub raw URLs to pattern images
- */
-export const SAMPLE_PATTERNS = [
-  {
-    name: 'Seamless',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/patterns/Seamless.png'
+- Export Configuration
+  */
+  const EXPORT_CONFIG = {
+  // Available export resolutions
+  RESOLUTIONS: {
+  CURRENT: ‘current’,
+  HIGH: 1600,
+  ULTRA: 2400,
+  MAX: 3200,
+  PRINT: 4800,
+  CUSTOM: ‘custom’
   },
-  {
-    name: 'Mushrooms',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/patterns/Mushrooms.png'
-  },
-  {
-    name: 'Jolt Cola',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/patterns/JoltCola.png'
-  },
-  {
-    name: 'Beaver',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/patterns/Beaver.png'
-  },
-  {
-    name: 'Pinot Noir',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/patterns/PinotNoir.png'
-  },
-  {
-    name: 'Wu-Tang',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/patterns/Wu-Tang.png'
-  },
-  {
-    name: 'Sturdy',
-    url: 'https://raw.githubusercontent.com/1gby/SeamlessByRudeboy/main/assets/patterns/sturdy.png'
-  }
-];
 
-/* ==========================================================================
-   MOCKUP IMAGE URLS
-   ========================================================================== */
+// Export formats
+FORMATS: {
+PNG: ‘png’,
+JPG: ‘jpg’
+},
 
-/**
- * URLs to mockup template images
- * These are loaded once when the app starts
- */
-export const MOCKUP_URLS = {
-  PHONE: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/Mockups/iphone.png',
-  IPAD: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/Mockups/ipad.png',
-  TOTE: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/Mockups/tote.png',
-  BANDANA: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/Mockups/bandana.png',
-  BEDSPREAD: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/Mockups/bedspread.png',
-  MUG: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/Mockups/mug.png',
-  BOTTLE: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/Mockups/bottle.png',
-  SWEATSHIRT: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/Mockups/sweatshirt.png'
-};
+// JPEG quality (0-1)
+JPEG_QUALITY: 0.95,
 
-/* ==========================================================================
-   EASTER EGG - MUSIC PLAYLIST
-   ========================================================================== */
-
-/**
- * Audio tracks for the Matrix easter egg
- * Plays random tracks when easter egg is activated
- */
-export const PLAYLIST = [
-  {
-    title: 'Capone',
-    artist: 'Hey Pluto',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/capone.mp3'
-  },
-  {
-    title: 'Count',
-    artist: 'Fonss',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/count.mp3'
-  },
-  {
-    title: 'Falling Softly',
-    artist: 'Richard Smithson',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/falling%20softly.mp3'
-  },
-  {
-    title: 'Fluid',
-    artist: 'Mountaineer',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/fluid.mp3'
-  },
-  {
-    title: 'I Wanna Take Your Body Higher',
-    artist: 'SkyGaze',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/i%20wanna%20take%20your%20body%20higher.mp3'
-  },
-  {
-    title: 'Journey',
-    artist: 'Tatami',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/journey.mp3'
-  },
-  {
-    title: 'Moments',
-    artist: 'Tatami',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/moments.mp3'
-  },
-  {
-    title: 'Stardrive',
-    artist: 'Simon Folwar',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/stardrive.mp3'
-  },
-  {
-    title: 'Sunset In Junipero',
-    artist: 'Bach',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/sunset%20in%20junipero.mp3'
-  },
-  {
-    title: 'I Know',
-    artist: 'Matrika',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/IKnow.mp3'
-  },
-  {
-    title: 'Other Worlds',
-    artist: 'Carpetman',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/OtherWorlds.mp3'
-  },
-  {
-    title: 'Jaffa Days',
-    artist: 'ToneBreak',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/JaffaDays.mp3'
-  },
-  {
-    title: 'Baby Blue',
-    artist: 'Action Bronson',
-    url: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/BabyBlue.mp3'
-  }
-];
-
-/**
- * Easter egg animation settings
- */
-export const EASTER_EGG = {
-  MESSAGE_INTERVAL: 30000,  // How often "CREATED BY RUDEBOY" appears (30 seconds)
-  MATRIX_SPEED: 50,         // Milliseconds between matrix frames (lower = faster)
-  MATRIX_SPEED_MESSAGE: 75, // Speed during message animation
-  AUDIO_VOLUME: 0.5,        // Audio playback volume (0.0 to 1.0)
-  FADE_IN_STEP: 0.05,       // Volume increase per step during fade in
-  FADE_OUT_STEP: 0.05       // Volume decrease per step during fade out
-};
-
-/* ==========================================================================
-   COLOR PALETTE EXTRACTION
-   ========================================================================== */
-
-/**
- * Settings for automatic color palette generation
- */
-export const COLOR_PALETTE = {
-  MAX_COLORS: 9,            // Maximum colors to extract from pattern
-  SAMPLE_SIZE: 500,         // Max dimensions for sampling (faster processing)
-  COLOR_BUCKET_SIZE: 10     // Group similar colors (RGB rounded to nearest 10)
-};
-
-/* ==========================================================================
-   PATTERN QUALITY THRESHOLDS
-   ========================================================================== */
-
-/**
- * Thresholds for pattern quality assessment
- * Used to show quality badges (Excellent, Good, Low)
- */
-export const QUALITY_THRESHOLDS = {
-  EXCELLENT_MIN: 3000,  // Pixels - "Excellent" quality
-  GOOD_MIN: 2000        // Pixels - "Good" quality (below = "Low")
+// Default filename prefix
+FILENAME_PREFIX: ‘rudeboy-pattern’
 };
 
 /**
- * Contrast ratio thresholds
- * Used to assess pattern contrast levels
- */
-export const CONTRAST_THRESHOLDS = {
-  HIGH: 7,      // High contrast
-  MEDIUM: 3     // Medium contrast (below = Low)
+
+- Loading Configuration
+  */
+  const LOADING_CONFIG = {
+  // Minimum loading time (ms) - ensures user sees loading animation
+  MIN_LOAD_TIME: 1500,
+
+// Minimum reload time (ms)
+MIN_RELOAD_TIME: 1500
 };
 
-/* ==========================================================================
-   LOCAL STORAGE KEYS
-   ========================================================================== */
-
 /**
- * Keys used for browser local storage
- * Allows patterns to persist between sessions
- */
-export const STORAGE_KEYS = {
-  SAVED_PATTERNS: 'rudeboy-patterns'  // Saved pattern data
+
+- Animation Configuration
+  */
+  const ANIMATION_CONFIG = {
+  // Transition duration (ms)
+  TRANSITION_NORMAL: 300,
+  TRANSITION_FAST: 150,
+  TRANSITION_SLOW: 500,
+
+// Animation timing functions
+EASE_IN_OUT: ‘ease-in-out’,
+EASE_OUT: ‘ease-out’,
+EASE_IN: ‘ease-in’
 };
 
-/* ==========================================================================
-   ASSET PATHS
-   ========================================================================== */
-
 /**
- * Paths to app assets
- */
-export const ASSETS = {
-  LOGO: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/icons/icon.png',
-  LOGO_NOVA: 'https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/icons/nova.png'
+
+- Calculator Configuration
+  */
+  const CALC_CONFIG = {
+  // Default values
+  DEFAULT_SIZE: 9,
+  DEFAULT_DPI: 150,
+  DEFAULT_UNIT: ‘inches’,
+
+// Size limits
+MIN_SIZE_INCHES: 1,
+MAX_SIZE_INCHES: 200,
+MIN_SIZE_CM: 1,
+MAX_SIZE_CM: 500,
+
+// DPI limits
+MIN_DPI: 72,
+MAX_DPI: 600,
+
+// Conversion factor
+CM_TO_INCHES: 2.54,
+
+// Preset recommendations
+PRESETS: {
+PRINT_QUALITY: [
+{ size: 4, dpi: 300, unit: ‘in’, label: ‘4” × 4” @ 300 DPI’ },
+{ size: 6, dpi: 300, unit: ‘in’, label: ‘6” × 6” @ 300 DPI’ },
+{ size: 8, dpi: 300, unit: ‘in’, label: ‘8” × 8” @ 300 DPI’ },
+{ size: 12, dpi: 300, unit: ‘in’, label: ‘12” × 12” @ 300 DPI’ }
+],
+WEB_DIGITAL: [
+{ px: 512, label: ‘512 × 512px’ },
+{ px: 1024, label: ‘1024 × 1024px’ },
+{ px: 2048, label: ‘2048 × 2048px’ },
+{ px: 4096, label: ‘4096 × 4096px’ }
+],
+POD: [
+{ size: 10.67, dpi: 150, unit: ‘in’, label: ‘Redbubble (1600px)’ },
+{ size: 16, dpi: 150, unit: ‘in’, label: ‘Society6 (2400px)’ },
+{ size: 13.33, dpi: 150, unit: ‘in’, label: ‘Spoonflower (2000px)’ },
+{ size: 21.33, dpi: 150, unit: ‘in’, label: ‘Zazzle (3200px)’ }
+]
+}
 };
 
-/* ==========================================================================
-   PRINT-ON-DEMAND STORE LINKS
-   ========================================================================== */
+/**
+
+- Pattern Quality Thresholds
+  */
+  const QUALITY_CONFIG = {
+  // Pixel thresholds for quality assessment
+  EXCELLENT_MIN: 3000,
+  GOOD_MIN: 2000,
+
+// Contrast ratio thresholds
+HIGH_CONTRAST: 7,
+MEDIUM_CONTRAST: 3
+};
 
 /**
- * Links to POD platforms where users can sell patterns
- * Organized by region
- */
-export const POD_STORES = {
-  EUROPE: [
-    { name: 'Gelato 🇪🇺', url: 'https://www.gelato.com/' },
-    { name: 'Contrado 🇪🇺', url: 'https://www.contrado.co.uk/' },
-    { name: 'Saal Digital 🇪🇺', url: 'https://www.saal-digital.com/' },
-    { name: 'Photobook Europe 🇪🇺', url: 'https://www.photobook-europe.com/' },
-    { name: 'WhiteWall 🇪🇺', url: 'https://www.whitewall.com/' }
-  ],
-  USA: [
-    { name: 'CanvasPeople 🇺🇸', url: 'https://www.canvaspeople.com/' },
-    { name: 'CanvasChamp 🇺🇸', url: 'https://www.canvaschamp.com/' },
-    { name: 'Mpix 🇺🇸', url: 'https://www.mpix.com/' },
-    { name: 'Canvaspop 🇺🇸', url: 'https://www.canvaspop.com/' },
-    { name: 'Canvas On Demand 🇺🇸', url: 'https://canvasondemand.com/' }
-  ],
-  CANADA: [
-    { name: 'CanvasCanada.ca 🇨🇦', url: 'https://www.canvascanada.ca/' },
-    { name: 'CanvasChamp.ca 🇨🇦', url: 'https://www.canvaschamp.ca/' },
-    { name: 'BestCanvas.ca 🇨🇦', url: 'https://www.bestcanvas.ca/' },
-    { name: 'Canvaspop 🇨🇦', url: 'https://www.canvaspop.com/' },
-    { name: 'Posterjack 🇨🇦', url: 'https://posterjack.ca/' }
-  ]
+
+- Grid Overlay Configuration
+  */
+  const GRID_CONFIG = {
+  // Available grid sizes (in inches)
+  SIZES: [0, 1, 2, 6, 12],
+
+// DPI for grid calculations
+DPI: 150,
+
+// Grid line style
+LINE_COLOR: ‘rgba(255, 255, 255, 0.5)’,
+LINE_WIDTH: 2,
+LINE_DASH: [5, 5]
+};
+
+/**
+
+- Mockup Configuration
+  */
+  const MOCKUP_CONFIG = {
+  // Base URL for mockup images
+  BASE_URL: ‘https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/Mockups/’,
+
+// Available mockups
+MOCKUPS: {
+phone: ‘iphone.png’,
+bottle: ‘bottle.png’,
+tote: ‘tote.png’,
+bandana: ‘bandana.png’,
+bedspread: ‘bedspread.png’,
+ipad: ‘ipad.png’,
+mug: ‘mug.png’,
+sweatshirt: ‘sweatshirt.png’
+},
+
+// Mockup display size (percentage of canvas)
+DISPLAY_SIZE_PERCENT: 0.72,
+
+// Chroma key detection (green screen)
+CHROMA_KEY: {
+MIN_GREEN: 200,
+GREEN_ADVANTAGE: 50,
+MAX_RED: 50,
+MAX_BLUE: 50
+}
+};
+
+/**
+
+- Sample Patterns Configuration
+  */
+  const SAMPLES_CONFIG = {
+  // Base URL for sample patterns
+  BASE_URL: ‘https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/patterns/’,
+
+// Available samples
+SAMPLES: [
+{ name: ‘Seamless’, file: ‘Seamless.png’ },
+{ name: ‘Mushrooms’, file: ‘Mushrooms.png’ },
+{ name: ‘Jolt Cola’, file: ‘JoltCola.png’ },
+{ name: ‘Beaver’, file: ‘Beaver.png’ },
+{ name: ‘Pinot Noir’, file: ‘PinotNoir.png’ },
+{ name: ‘Wu-Tang’, file: ‘Wu-Tang.png’ }
+]
+};
+
+/**
+
+- Weather API Configuration
+  */
+  const WEATHER_CONFIG = {
+  // Open-Meteo API endpoint
+  API_ENDPOINT: ‘https://api.open-meteo.com/v1/forecast’,
+
+// Nominatim reverse geocoding
+GEOCODING_ENDPOINT: ‘https://nominatim.openstreetmap.org/reverse’,
+
+// US bounds for F vs C
+US_BOUNDS: {
+MIN_LAT: 24,
+MAX_LAT: 50,
+MIN_LON: -125,
+MAX_LON: -66
+}
+};
+
+/**
+
+- Local Storage Configuration
+  */
+  const STORAGE_CONFIG = {
+  // Storage key for saved patterns
+  PATTERNS_KEY: ‘rudeboy-patterns’,
+
+// Maximum saved patterns
+MAX_PATTERNS: 50
+};
+
+/**
+
+- Easter Egg Configuration
+  */
+  const EASTER_EGG_CONFIG = {
+  // Music base URL
+  MUSIC_BASE_URL: ‘https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/secret%20stash/’,
+
+// Icon URL
+ICON_URL: ‘https://raw.githubusercontent.com/1gby/seamless-checker/main/assets/icons/nova.png’,
+
+// Matrix animation settings
+MATRIX: {
+MESSAGE: ‘CREATED BY RUDEBOY’,
+MESSAGE_INTERVAL: 30000,
+INITIAL_SPEED: 50,
+MESSAGE_SPEED: 75
+},
+
+// Audio settings
+AUDIO: {
+MAX_VOLUME: 0.5,
+FADE_IN_STEP: 0.05,
+FADE_IN_INTERVAL: 100,
+FADE_OUT_STEP: 0.05,
+FADE_OUT_INTERVAL: 50
+}
+};
+
+/**
+
+- Snapping Configuration
+  */
+  const SNAP_CONFIG = {
+  // Offset snap increment (%)
+  OFFSET_SNAP: 10,
+
+// Zoom snap thresholds
+ZOOM_SNAP_THRESHOLD: 25,
+
+// Scale snap thresholds
+SCALE_SNAP_THRESHOLD_LOW: 0.25,
+SCALE_SNAP_THRESHOLD_HIGH: 0.01
+};
+
+/**
+
+- Touch Configuration
+  */
+  const TOUCH_CONFIG = {
+  // Edge dead zone for zoom (pixels)
+  EDGE_DEAD_ZONE_DESKTOP: 80,
+  EDGE_DEAD_ZONE_MOBILE: 100,
+
+// Pinch zoom sensitivity
+PINCH_ZOOM_SENSITIVITY: 1.0
 };
