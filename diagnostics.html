@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnostic Test</title>
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+      font-size: 14px;
+    }
+    .pass { color: #0f0; }
+    .fail { color: #f00; }
+    .test { margin: 10px 0; padding: 10px; border: 1px solid #333; }
+  </style>
+</head>
+<body>
+  <h1>🔍 File Loading Diagnostic</h1>
+  <div id="results"></div>
+
+  <script>
+    const results = document.getElementById('results');
+    
+    // Test CSS files
+    const cssFiles = [
+      'css/reset.css',
+      'css/variables.css',
+      'css/layout.css',
+      'css/components.css',
+      'css/animations.css'
+    ];
+    
+    // Test JS files
+    const jsFiles = [
+      'js/config.js',
+      'js/utils.js',
+      'js/canvas.js',
+      'js/ui.js',
+      'js/tools.js',
+      'js/patterns.js',
+      'js/mockups.js',
+      'js/easter-egg.js',
+      'js/main.js'
+    ];
+    
+    function testFile(url, type) {
+      return new Promise((resolve) => {
+        if (type === 'css') {
+          fetch(url)
+            .then(response => {
+              if (response.ok) {
+                resolve({ url, status: 'PASS ✅', color: 'pass' });
+              } else {
+                resolve({ url, status: `FAIL ❌ (${response.status})`, color: 'fail' });
+              }
+            })
+            .catch(error => {
+              resolve({ url, status: `FAIL ❌ (${error.message})`, color: 'fail' });
+            });
+        } else {
+          fetch(url)
+            .then(response => {
+              if (response.ok) {
+                resolve({ url, status: 'PASS ✅', color: 'pass' });
+              } else {
+                resolve({ url, status: `FAIL ❌ (${response.status})`, color: 'fail' });
+              }
+            })
+            .catch(error => {
+              resolve({ url, status: `FAIL ❌ (${error.message})`, color: 'fail' });
+            });
+        }
+      });
+    }
+    
+    async function runTests() {
+      results.innerHTML = '<h2>Testing CSS Files...</h2>';
+      
+      for (const file of cssFiles) {
+        const result = await testFile(file, 'css');
+        const div = document.createElement('div');
+        div.className = `test ${result.color}`;
+        div.textContent = `${result.url}: ${result.status}`;
+        results.appendChild(div);
+      }
+      
+      results.innerHTML += '<h2>Testing JS Files...</h2>';
+      
+      for (const file of jsFiles) {
+        const result = await testFile(file, 'js');
+        const div = document.createElement('div');
+        div.className = `test ${result.color}`;
+        div.textContent = `${result.url}: ${result.status}`;
+        results.appendChild(div);
+      }
+      
+      // Check current location
+      const locationDiv = document.createElement('div');
+      locationDiv.className = 'test';
+      locationDiv.innerHTML = `<h2>Current Location</h2>
+        <strong>URL:</strong> ${window.location.href}<br>
+        <strong>Protocol:</strong> ${window.location.protocol}<br>
+        <strong>Pathname:</strong> ${window.location.pathname}`;
+      results.appendChild(locationDiv);
+    }
+    
+    runTests();
+  </script>
+
+</body>
+</html>
